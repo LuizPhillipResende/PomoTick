@@ -4,7 +4,7 @@
   "description": "Um website com funcionalidade de cronometro pomodoro e to-do list",
   "main": "./PomoTick/src/index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node --experimental-specifier-resolution=node --trace-warnings src/index.js",
     "serve": "nodemon --exec babel-node ./src/index.js"
   },
   "engines": {

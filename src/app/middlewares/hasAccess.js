@@ -1,11 +1,11 @@
 import express from 'express';
 import session from 'express-session';
-import user from '../schemas/user.js';
+import { User } from '../schemas/user.js';
 
 function hasAccess(accessLevel) {
   return async function(req, res, next) {
       try {
-          const userData = await user.findOne({ email: req.session.user.email });
+          const userData = await User.findOne({ email: req.session.user.email });
           if (userData && userData.hasAccess(accessLevel)) {
               return next();
           }
