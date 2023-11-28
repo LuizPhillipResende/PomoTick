@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>PomoTick</title>
+        <link rel="stylesheet" href="/style.css">
+        <link rel="shortcut icon" href="/logo.svg" type="image/x-icon">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    </head>
+<body onload="loadTodoList(); loadToDoTable()">
+    <audio id="Sweden" loop>
+        <source src="/Sweden.mp3" type="audio/mp3">
+    </audio>
+    <div id="navbar">
+        <span>
+            <div id="logoHome" alt="Logo Comp Junior"><svg style="fill:#902F72" width="70" height="70" viewBox="-2 -2 35 35" xmlns="http://www.w3.org/2000/svg">
+                <path d="M13.003 20.6648C11.8363 20.6648 10.3338 19.8038 10.3338 18.6371V12.0545H2.20129C1.03028 12.0545 0.00134277 12.5582 0.00134277 13.7249V29.4388C0.00134277 30.6098 1.03028 31.8583 2.20129 31.8583H17.9152C19.0862 31.8583 19.8052 30.6098 19.8052 29.4388V20.6648H13.003Z"/>
+                <path d="M9.47275 9.2303C9.48688 9.50686 9.39122 9.77782 9.20659 9.98422C9.02196 10.1906 8.76329 10.3158 8.48687 10.3324H0.987254C0.710829 10.3158 0.452166 10.1906 0.267536 9.98422C0.0829064 9.77782 -0.0127533 9.50686 0.0013679 9.2303V1.10212C-0.0127533 0.825558 0.0829064 0.554604 0.267536 0.348206C0.452166 0.141807 0.710829 0.0166639 0.987254 0H8.48687C8.76329 0.0166639 9.02196 0.141807 9.20659 0.348206C9.39122 0.554604 9.48688 0.825558 9.47275 1.10212V9.2303Z"/>
+                <path d="M30.9986 30.7562C31.0128 31.0327 30.9171 31.3037 30.7325 31.5101C30.5478 31.7165 30.2892 31.8416 30.0127 31.8583H22.5131C22.2367 31.8416 21.978 31.7165 21.7934 31.5101C21.6088 31.3037 21.5131 31.0327 21.5272 30.7562V22.628C21.5131 22.3514 21.6088 22.0805 21.7934 21.8741C21.978 21.6677 22.2367 21.5425 22.5131 21.5259H30.0127C30.2892 21.5425 30.5478 21.6677 30.7325 21.8741C30.9171 22.0805 31.0128 22.3514 30.9986 22.628V30.7562Z"/>
+                <path d="M28.8848 0H13.3087C12.1412 0 11.1948 0.946399 11.1948 2.11384V17.69C11.1948 18.8574 12.1412 19.8038 13.3087 19.8038H28.8848C30.0522 19.8038 30.9986 18.8574 30.9986 17.69V2.11384C30.9986 0.946399 30.0522 0 28.8848 0Z"/></svg>
+            </div>
+            <a id="volume" style="text-decoration: none;" href="#" onclick="event.preventDefault(); muteAudio()" class="material-symbols-outlined">
+                volume_up
+            </a>
+            <label style="color: #902F72; font-size: 10px; font-weight: 500;" for="volume">Música</label>
+            <a id="history" href="#" style="text-decoration: none;" onclick="event.preventDefault(); loadToDoTable(); displayTable()" class="material-symbols-outlined">
+                history
+            </a>
+            <label style="color: #902F72; font-size: 10px; font-weight: 500;" for="history">Histórico</label>
+        </span>
+        <span>
+            <a id="admin" style="text-decoration: none;" href="#" class="material-symbols-outlined">
+                shield_person
+            </a>
+            <label style="color: #902F72; font-size: 10px; font-weight: 500;" for="history">Admin</label>
+            <a id="logout" style="text-decoration: none;" href="/logout" class="material-symbols-outlined">
+                logout
+            </a>
+            <label style="color: #902F72; font-size: 10px; font-weight: 500;" for="history">Sair</label>
+            <br>
+            <br>
+            <label style="color: #902F72; font-size: 10px; font-weight: 500;" for="Camada_1">Desenvolvido por Luiz Phillip</label>
+        </span>
+    </div>
+
+    <div id="historyTable" style="display: none;">
+        <span onclick="displayTable();" class="fechar">&times</span>
+        <h2>Relatório pessoal</h2>
+
+        <table id="todoTable">
+            <thead>
+                <tr>
+                    <th>Atividade</th>
+                    <th>Concluída?</th>
+                    <th>Relatório?</th>
+                    <th>Excluido?</th>
+                </tr>
+            </thead>
+            <tbody id="todoBody">
+            </tbody>
+        </table>
+    </div>
+    
+    <div id="homePage">
+        <div id="title">
+            <h1>PomoTick</h1>
+        </div>
+        <span style=" width: 80vw; height: 700px; display: flex; justify-content: space-around;">
+            <div id="todo-list">
+                <h2>To-Do List</h2>
+                <ul id="todo">
+                    <li>Fazer cafune no CompCat</li>
+                    <li class="checked">Adorar o CompCat!</li>
+                </ul>
+                <div id="todoText">
+                    <input type="text" id="inputToDo" placeholder="Estudar...">
+                    <a href="#" id="btnAdd" onclick="event.preventDefault(); newItem();">Adicionar</a>
+                    <div><input name="relatorio" type="checkbox" checked id="checkRel">
+                    <label>
+                        Exibir no relatório
+                        <span id="help-tip" style="color: white; font-size: 20px !important;" class="material-symbols-outlined">
+                            info
+                            <p>Os dados contidos na sua <br> 
+                            lista To-Do irão ser <br> 
+                            informados nos relatorios <br> 
+                            realizados para o <br> 
+                            administrador da sua <br>
+                            equipe!</p>
+                        </span>
+                    </label></div>
+                </div>
+            </div>
+
+            <div id="pomodoro">
+                <h2>Pomodoro</h2>
+                <svg width="60%" height="auto" viewBox="0 0 42 42" class="donut">
+                    <circle id="c1" cx="21" cy="21" r="15.91549430918954" stroke-dasharray="100 0" stroke-dashoffset="100"></circle>
+                    <circle id="c2" cx="21" cy="21" r="15.91549430918954" stroke-dasharray="0 100" stroke-dashoffset="0"></circle>
+                    <g class="chart-text">
+                        <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" id="counterText">25:00</text>
+                    </g>
+                </svg>
+                <a href="#" onclick="event.preventDefault(); startTimer(false);" id="btnPomodoro">Iniciar</a>
+            </div>
+        </span>
+    </div>
+
+    <script>
+        //todo list
+        document.getElementById("inputToDo").addEventListener("keydown", function(event){
+            if(event.key === "Enter") {
+                newItem();
+            }
+        })
+
+        var myNodelist = document.getElementsByTagName("LI");
+        var i;
+        for (i = 0; i < myNodelist.length; i++) {
+          var span = document.createElement("SPAN");
+          var txt = document.createTextNode("\u00D7");
+          span.className = "close";
+          span.appendChild(txt);
+          myNodelist[i].appendChild(span);
+        }
+
+        var close = document.getElementsByClassName("close");
+        var i;
+        for (i = 0; i < close.length; i++) {
+          close[i].onclick = function() {
+            var div = this.parentElement;
+            div.style.display = "none";
+            saveDataBase();
+          }
+        }
+
+        var list = document.querySelector('ul');
+        list.addEventListener('click', function(ev) {
+          if (ev.target.tagName === 'LI') {
+            ev.target.classList.toggle('checked');
+          }
+          saveDataBase();
+        }, false);
+        
+        function newItem() {
+            var li = document.createElement("li");
+            var inputValue = document.getElementById("inputToDo").value;
+            var t = document.createTextNode(inputValue);
+            li.appendChild(t);
+            if (inputValue === ''){
+              alert("Não é possivel salvar um item em branco!");
+            }else{
+              document.getElementById("todo").appendChild(li);
+            }
+            document.getElementById("inputToDo").value = "";
+
+            if(document.getElementById('checkRel').checked){
+                li.classList.add('relatorio');
+            }
+          
+            var span = document.createElement("SPAN");
+            var txt = document.createTextNode("\u00D7");
+            span.className = "close";
+            span.appendChild(txt);
+            li.appendChild(span);
+          
+            for (i = 0; i < close.length; i++) {
+              close[i].onclick = function() {
+                var div = this.parentElement;
+                div.style.display = "none";
+              }
+            }
+
+            saveDataBase();
+        }
+
+        function saveDataBase(){
+            var todoList = [];
+            var listItems = document.querySelectorAll('#todo li');
+                
+            listItems.forEach((item) => {
+                var checked = item.classList.contains('checked');
+                var text = item.innerText.trim().replace('\u00D7', '');
+                var display = item.style.display;
+                var relatorio = item.classList.contains('relatorio');
+                todoList.push({ text, checked, relatorio, display });
+            });
+        
+            const requestData = {
+                todoList: todoList.map(item => ({ text: item.text, checked: item.checked, relatorio: item.relatorio, display: item.display })),
+            };
+        
+            fetch('/saveUserData', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(requestData),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    console.log('Dados do usuário salvos com sucesso:', data.todo);
+                } else {
+                    console.error('Erro ao salvar dados do usuário:', data.error);
+                }
+            })
+            .catch(error => console.error('Erro na solicitação:', error));
+        }
+
+        function loadTodoList() {
+            fetch('/loadUserData', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    const todoList = data.todo.todoList;
+                    renderTodoList(todoList);
+                } else {
+                    console.error('Erro ao carregar dados do usuário:', data.error);
+                }
+            })
+            .catch(error => console.error('Erro na solicitação:', error));
+        }
+
+        function renderTodoList(todoList) {
+            const ul = document.getElementById('todo');
+            ul.innerHTML = '';
+        
+            todoList.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = item.text;
+                if (item.checked) {
+                    li.classList.add('checked');
+                }
+                li.style.display = item.display;
+            
+                const span = document.createElement('SPAN');
+                const txt = document.createTextNode('\u00D7');
+                span.className = 'close';
+                span.appendChild(txt);
+                li.appendChild(span);
+                ul.appendChild(li);
+            }); 
+        
+            const close = document.getElementsByClassName('close');
+            for (let i = 0; i < close.length; i++) {
+                close[i].onclick = function() {
+                    var div = this.parentElement;
+                    div.style.display = 'none';
+                    saveDataBase();
+                };
+            }
+        }
+
+
+    </script>
+
+    <script>
+        //pomodoro
+        var timerInterval;
+        var timeout;
+
+        function startTimer(Repeat) {
+            var btn = document.getElementById('btnPomodoro');
+            var repeat = Repeat;
+            var audio = document.getElementById("Sweden");
+        
+            if (btn.innerText === 'Iniciar' || repeat == true) {
+                audio.play();
+                btn.style.backgroundColor = '#FFF';
+                btn.style.color = '#902F72';
+                btn.innerText = 'Parar';
+            
+                var duration = 1500 ;
+                var time = duration;
+                var i = 1;
+                var k = ((i/time) * 100);
+                var l = 100 - k;
+                i++;
+                document.getElementById("c1").style.strokeDasharray = [l,k];
+                document.getElementById("c2").style.strokeDasharray = [k,l];
+                document.getElementById("c1").style.strokeDashoffset = l;
+            
+                updateTimerDisplay(duration);
+            
+                timeout = setTimeout(function () {
+                    timerInterval = setInterval(function () {
+                        if (i > time) {
+                            document.getElementById("c1").style.strokeDasharray = '';
+                            document.getElementById("c2").style.strokeDasharray = '';
+                            document.getElementById("c1").style.strokeDashoffset = '';
+                            document.getElementById("c1").style.stroke = '#FFF';
+                            document.getElementById("c2").style.stroke = '#902F72';
+                            clearInterval(timerInterval);
+                            clearTimeout(timeout);
+                            audio.pause();
+                            audio.currentTime = 0;
+                            restTimer();
+                        }else{
+                        k = ((i/duration) * 100);
+                        l = 100 - k;
+                            document.getElementById("c1").style.strokeDasharray = [l,k];
+                            document.getElementById("c2").style.strokeDasharray = [k,l];
+                            document.getElementById("c1").style.strokeDashoffset = l;
+                            
+                            updateTimerDisplay(time - i);
+                            i++;
+                        }
+                    }, 1000);
+                }, 0);
+            } else {
+                clearInterval(timerInterval);
+                clearTimeout(timeout);
+                resetTimerDisplay();
+                audio.pause();
+                audio.currentTime = 0;
+            }
+        }
+
+        function restTimer() {
+            var btn = document.getElementById('btnPomodoro');
+            
+            if (btn.innerText === 'Parar') {
+                btn.style.backgroundColor = '#FFF';
+                btn.style.color = '#902F72';
+                btn.innerText = 'Parar';
+            
+                var duration = 300;
+                var time = duration;
+                var i = 1;
+                var k = ((i/time) * 100);
+                var l = 100 - k;
+                i++;
+                document.getElementById("c1").style.strokeDasharray = [l,k];
+                document.getElementById("c2").style.strokeDasharray = [k,l];
+                document.getElementById("c1").style.strokeDashoffset = l;
+            
+                updateTimerDisplay(duration);
+            
+                timeout = setTimeout(function () {
+                    timerInterval = setInterval(function () {
+                        if (i > time) {
+                            document.getElementById("c1").style.strokeDasharray = '';
+                            document.getElementById("c2").style.strokeDasharray = '';
+                            document.getElementById("c1").style.strokeDashoffset = '';
+                            document.getElementById("c1").style.stroke = '#902F72';
+                            document.getElementById("c2").style.stroke = '#FFF';
+                            clearInterval(timerInterval);
+                            clearTimeout(timeout);
+                            startTimer(true);
+                        }else{
+                        k = ((i/duration) * 100);
+                        l = 100 - k;
+                            document.getElementById("c1").style.strokeDasharray = [l,k];
+                            document.getElementById("c2").style.strokeDasharray = [k,l];
+                            document.getElementById("c1").style.strokeDashoffset = l;
+                            
+                            updateTimerDisplay(time - i);
+                            i++;
+                        }
+                    }, 1000);
+                }, 0);
+            } else {
+                clearInterval(timerInterval);
+                clearTimeout(timeout);
+                resetTimerDisplay();
+            }
+        }
+
+        function updateTimerDisplay(seconds) {
+            var minutos = Math.floor(seconds / 60);
+            var segundos = seconds % 60;
+            if (segundos < 10) {
+                segundos = "0" + segundos;
+            }
+            if (minutos < 10) {
+                minutos = "0" + minutos;
+            }
+            document.getElementById("counterText").innerHTML = minutos + ":" + segundos;
+        }
+
+        function resetTimerDisplay() {
+            var btn = document.getElementById('btnPomodoro');
+            btn.style.backgroundColor = '';
+            btn.style.color = '';
+            btn.innerText = 'Iniciar';
+        
+            document.getElementById("counterText").innerHTML = "25:00";
+        
+            document.getElementById("c1").style.strokeDasharray = '';
+            document.getElementById("c2").style.strokeDasharray = '';
+            document.getElementById("c1").style.strokeDashoffset = '';
+        }
+
+    </script>
+
+    <script>
+        //navbar
+        function muteAudio(){
+            audio = document.getElementById("Sweden");
+            var isMuted = audio.muted;
+            if(isMuted){
+                audio.muted = false;
+                document.getElementById("volume").innerHTML = "volume_up";
+            }else{
+                audio.muted = true;
+                document.getElementById("volume").innerHTML = "volume_off";
+            }
+        }
+
+        function loadToDoTable() {
+            fetch('/loadUserData', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    const todoList = data.todo.todoList;
+                    renderToDoTable(todoList);
+                } else {
+                    console.error('Erro ao carregar dados do usuário:', data.error);
+                }
+            })
+            .catch(error => console.error('Erro na solicitação:', error));
+        }
+
+        function renderToDoTable(todoList) {
+            const tbody = document.getElementById('todoBody');
+            tbody.innerHTML = '';
+        
+            todoList.forEach(item => {
+                const tr = document.createElement('tr');
+                
+                const tdActivity = document.createElement('td');
+                tdActivity.textContent = item.text;
+                tr.appendChild(tdActivity);
+
+                const tdCompleted = document.createElement('td');
+                tdCompleted.textContent = item.checked ? 'Sim' : 'Não';
+                tr.appendChild(tdCompleted);
+
+                const tdReport = document.createElement('td');
+                tdReport.textContent = item.relatorio ? 'Sim' : 'Não';
+                tr.appendChild(tdReport);
+
+                const tdDeleted = document.createElement('td');
+                if(item.display === ''){
+                    tdDeleted.textContent = 'Não';
+                }else{
+                    tdDeleted.textContent = 'Sim';
+                }
+                tr.appendChild(tdDeleted);
+
+                tbody.appendChild(tr);
+            });
+        }
+
+        function displayTable(){
+            table = document.getElementById('historyTable');
+            if(table.style.display == 'none'){
+                table.style.display = '';
+            }else{
+                table.style.display = 'none';
+            }
+        }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PomoTick</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon">
+</head>
+<body>
+    <div id="logo" alt="Logo Comp Junior"><svg width="100" height="100" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+        <path d="M13.003 20.6648C11.8363 20.6648 10.3338 19.8038 10.3338 18.6371V12.0545H2.20129C1.03028 12.0545 0.00134277 12.5582 0.00134277 13.7249V29.4388C0.00134277 30.6098 1.03028 31.8583 2.20129 31.8583H17.9152C19.0862 31.8583 19.8052 30.6098 19.8052 29.4388V20.6648H13.003Z"/>
+        <path d="M9.47275 9.2303C9.48688 9.50686 9.39122 9.77782 9.20659 9.98422C9.02196 10.1906 8.76329 10.3158 8.48687 10.3324H0.987254C0.710829 10.3158 0.452166 10.1906 0.267536 9.98422C0.0829064 9.77782 -0.0127533 9.50686 0.0013679 9.2303V1.10212C-0.0127533 0.825558 0.0829064 0.554604 0.267536 0.348206C0.452166 0.141807 0.710829 0.0166639 0.987254 0H8.48687C8.76329 0.0166639 9.02196 0.141807 9.20659 0.348206C9.39122 0.554604 9.48688 0.825558 9.47275 1.10212V9.2303Z"/>
+        <path d="M30.9986 30.7562C31.0128 31.0327 30.9171 31.3037 30.7325 31.5101C30.5478 31.7165 30.2892 31.8416 30.0127 31.8583H22.5131C22.2367 31.8416 21.978 31.7165 21.7934 31.5101C21.6088 31.3037 21.5131 31.0327 21.5272 30.7562V22.628C21.5131 22.3514 21.6088 22.0805 21.7934 21.8741C21.978 21.6677 22.2367 21.5425 22.5131 21.5259H30.0127C30.2892 21.5425 30.5478 21.6677 30.7325 21.8741C30.9171 22.0805 31.0128 22.3514 30.9986 22.628V30.7562Z"/>
+        <path d="M28.8848 0H13.3087C12.1412 0 11.1948 0.946399 11.1948 2.11384V17.69C11.1948 18.8574 12.1412 19.8038 13.3087 19.8038H28.8848C30.0522 19.8038 30.9986 18.8574 30.9986 17.69V2.11384C30.9986 0.946399 30.0522 0 28.8848 0Z"/></svg>
+        </div>
+    <centered><h1>PomoTick</h1>
+    <div id="cardLogin"><form action="/signup" method="POST">
+        <label for="name">Nome:</label><br>
+        <input type="text" id="name" name="name" placeholder="Nome"><br>
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email" placeholder="email@compjunior.com.br"><br>
+        <label for="password">Senha:</label><br>
+        <group>
+            <input type="password" id="password" name="password" placeholder="********"><br>
+            <input type="submit" value="OK" id="enviar">
+        </group>
+        <br><fieldset style="display: flex; justify-content: space-around ;">
+            <legend>Cargo:</legend>
+            <div style="display: flex;">
+                <input type="radio" id="user" name="role" value="user" checked>
+                <label for="user">Usuário</label>
+            </div>
+            <div style="display: flex;">
+                <input type="radio" id="admin" name="role" value="admin">
+                <label for="admin">Admin</label>
+            </div>
+        </fieldset>
+        
+    </form></div>
+    <br>
+    <group>
+        <a class="buttonLog" href="../">Voltar</a>
+    </group></centered>
+</body>
+</html>

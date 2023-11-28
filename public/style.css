@@ -1,0 +1,492 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Exa:wght@300;400;500;600;700;800&display=swap');
+
+*::-webkit-scrollbar {
+    width: 12px;
+  }
+  
+  *::-webkit-scrollbar-track {
+    background: #902F72;
+  }
+  
+  *::-webkit-scrollbar-thumb {
+    background-color: #b25194;
+    border-radius: 20px;
+    border: 3px solid #b25194;
+  }
+
+*{
+    scrollbar-width: thin;
+    scrollbar-color: #b25194 #902F72;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    color: white;
+    background: url('./HorizontalBackground.png') no-repeat center center;
+    background-size: 100% 100%;
+    font-family: 'Lexend Exa', sans-serif;
+    font-weight: 300;
+    display: grid;
+    height: 100vh;
+}
+
+centered{
+    justify-self: center;
+    align-self: center;
+}
+
+#logo{
+    position: fixed;
+    margin: 20px;
+    height: 100px;
+    width: 100px;
+}
+
+#logo svg path{
+    fill: transparent;
+    stroke: white;
+    stroke-width: 1;
+    stroke-dashoffset: 100;
+    stroke-dasharray: 100;
+    animation: logoBuild 3s ease forwards, toColor 0.5s ease forwards 2s;
+}
+
+
+@keyframes logoBuild {
+    to{
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes toColor {
+    to{
+        fill: white;
+        stroke: transparent;
+    }
+}
+
+h1{
+    font-size: 4rem;
+}
+
+#cardLogin{
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(10px);
+    background-color: #eeeeeeaa;
+    border-radius: 25px;
+}
+
+#cardLogin form input{
+    width: 100%;
+    line-height: 3em;
+    border-radius: 5px;
+    border: 0px #FFF solid;
+    padding-left: 10px;
+}
+
+#cardLogin form input:focus{
+    border: 3px #902F72 solid;
+}
+
+#cardLogin form{
+    padding-top: 30px;
+    padding-bottom: 30px;
+    display: grid;
+    width: 80%;
+    height: 90%;
+}
+
+#email{
+    margin-bottom: 10px;
+}
+
+#name{
+    margin-bottom: 10px;
+}
+
+#password{
+    width: 180%!important;
+    margin-right: 5px;
+}
+
+group{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+group a{
+    text-decoration: none;
+    color: white;
+}
+
+#enviar{
+    color: white;
+    background-color: #902F72;
+}
+
+#enviar:hover{
+    background-color: #b25194;
+}
+
+#navbar{
+    padding-top: 20px;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    backdrop-filter: blur(10px);
+    background-color: #EEEEEEAA;
+    height: 100%;
+    width: 5%;
+    justify-content: space-between;
+}
+
+#navbar span{
+    display: grid;
+    justify-content: space-evenly;
+    height: 25%;
+    text-align: center;
+}
+
+
+#logoHome svg path{
+    fill: transparent;
+    stroke: #902F72;
+    stroke-width: 1;
+    stroke-dashoffset: 100;
+    stroke-dasharray: 100;
+    animation: logoBuild 3s ease forwards, toColor 0.5s ease forwards 2s;
+}
+
+
+@keyframes logoBuild {
+    to{
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes toColor {
+    to{
+        fill: #902F72;
+        stroke: transparent;
+    }
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24; 
+  color: #902F72;
+  font-size: 35px !important;
+}
+
+#homePage{
+    display: grid;
+    justify-content: center;
+    align-content: start;
+}
+
+#title{
+    color: #902F72;
+    height: 100px;
+    width: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(10px);
+    background-color: #eeeeeeaa;
+    border-radius: 0px 0px 25px 25px;
+    margin-bottom: 100px;
+    justify-self: center;
+}
+
+#todo-list{
+    text-align: center;
+    height: 80%;
+    width: 500px;
+    backdrop-filter: blur(10px);
+    background-color: #eeeeeeaa;
+    border-radius: 25px;
+}
+
+#todo-list h2{
+    color: #902F72;
+    font-size: 35px;
+    padding-top: 20px;
+}
+
+#todo{
+    overflow: auto;
+    height: 62%;
+}
+
+#todoText{
+    display: grid;
+    justify-items: center;
+    align-content: space-around;
+}
+
+
+#help-tip:hover p{
+    display:block;
+    transform-origin: 100% 0%;
+    -webkit-animation: fadeIn 0.3s ease;
+    animation: fadeIn 0.3s ease;
+}
+
+#help-tip p {    
+	display: none;
+	font-family: sans-serif;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	text-align: center;
+	background-color: #FFFFFF;
+	padding: 12px 16px;
+	width: 178px;
+	height: auto;
+	position: absolute;
+	left: 52%;
+	border-radius: 3px;
+/* 	border: 1px solid #E0E0E0; */
+	box-shadow: 0 0px 20px 0 rgba(0,0,0,0.1);
+	color: #37393D;
+	font-size: 12px;
+	line-height: 18px;
+	z-index: 99;
+}
+
+#help-tip p:before { 
+	position: absolute;
+	content: '';
+	width: 0;
+	height: 0;
+	border: 10px solid transparent;
+	border-bottom-color:#FFFFFF;
+	top: -9px;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+#help-tip p:after {
+	width: 10px;
+	height: 70px;
+	content:'';
+	position: absolute;
+	top: -40px;
+	left: 0;
+}
+
+@-webkit-keyframes fadeIn {
+    0% { opacity:0; }
+    100% { opacity:100%; }
+}
+
+@keyframes fadeIn {
+    0% { opacity:0; }
+    100% { opacity:100%; }
+}
+
+#inputToDo{
+    width: 90%;
+    height: 50px;
+    border-radius: 10px;
+    border-width: 0px;
+    padding-left: 10px;
+    font-size: 17px;
+}
+
+#inputToDo :focus{
+    border-width: 5px;
+    border-color: #902F72;
+}
+
+#btnAdd{
+    display: grid;
+    width: 90%;
+    height: 50px;
+    background-color: #902F72;
+    border-radius: 10px;
+    margin-top: 10px;
+    align-content: center;   
+    text-decoration: none;
+    color: white;
+}
+
+ul {
+    color: #902F72;
+  margin: 0;
+  padding: 0;
+}
+
+ul li {
+  cursor: pointer;
+  position: relative;
+  padding: 12px 8px 12px 40px;
+  list-style-type: none;
+  font-size: 18px;
+  transition: 0.2s;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+ul li:hover {
+  background: #b25194;
+  color: #FFF;
+}
+
+ul li.checked {
+  background: #902F72;
+  color: #fff;
+  text-decoration: line-through;
+}
+
+ul li.checked::before {
+  content: '';
+  position: absolute;
+  border-color: #fff;
+  border-style: solid;
+  border-width: 0 2px 2px 0;
+  top: 10px;
+  left: 16px;
+  transform: rotate(45deg);
+  height: 15px;
+  width: 7px;
+}
+
+.close {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 12px 16px 12px 16px;
+}
+
+.close:hover {
+  background-color: #f44336;
+  color: white;
+}
+
+#pomodoro{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    height: 80%;
+    width: 500px;
+    backdrop-filter: blur(10px);
+    background-color: #eeeeeeaa;
+    border-radius: 25px;
+
+}
+
+#pomodoro svg{
+    height: 70%;
+}
+
+#pomodoro h2{
+    color: #902F72;
+    font-size: 35px;
+    padding-top: 20px;
+}
+
+#btnPomodoro{
+    display: grid;
+    width: 90%;
+    height: 50px;
+    background-color: #902F72;
+    border-radius: 10px;
+    margin-top: 10px;
+    align-content: center;   
+    text-decoration: none;
+    color: white;
+}
+
+
+circle {
+    transition: all 1s linear;
+  }
+  #c1{
+    transition: all 1s linear;
+    stroke: #902F72;
+    stroke-width: 3;
+    stroke-linecap: round;
+    fill: transparent;
+  }
+  
+  #c2 {
+    transition: all 1s linear;
+    stroke: #FFF;
+    stroke-width: 3;
+    stroke-linecap: round;
+    fill: transparent;
+  }
+  
+  #counterText {
+    color: #902F72;
+    font-size: .5rem;
+  }
+  
+
+  #historyTable{
+    position: absolute;
+    width: 95%;
+    height: 95%;
+    background-color: #902F72AA;
+    backdrop-filter: blur(10px);
+    z-index: 999;
+    align-self: center;
+    justify-self: center;
+    border-radius: 10px;
+    overflow: auto;
+    padding: 50px;
+    text-align: center;
+  }
+
+  #historyTable h2{
+    font-size: 2rem;
+    padding-bottom: 20px;
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    font-weight: 700;
+  }
+  
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #ddddddDD;
+    color: #902F72;
+  }
+
+  .fechar {
+    top: 10px;
+    right: 32px;
+    color: #FFF;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    display: grid;
+    font-size: 2.5rem;
+  }
+  
+.fechar:hover, .fechar:focus {
+  color: #b25194;
+  text-decoration: none;
+  cursor: pointer;
+}
