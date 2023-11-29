@@ -14,6 +14,7 @@
     </audio>
     <div id="navbar">
         <span>
+            <span onclick="openAndCloseNavBar();" class="material-symbols-outlined" id="menuClose">close</span>
             <div id="logoHome" alt="Logo Comp Junior"><svg style="fill:#902F72" width="70" height="70" viewBox="-2 -2 35 35" xmlns="http://www.w3.org/2000/svg">
                 <path d="M13.003 20.6648C11.8363 20.6648 10.3338 19.8038 10.3338 18.6371V12.0545H2.20129C1.03028 12.0545 0.00134277 12.5582 0.00134277 13.7249V29.4388C0.00134277 30.6098 1.03028 31.8583 2.20129 31.8583H17.9152C19.0862 31.8583 19.8052 30.6098 19.8052 29.4388V20.6648H13.003Z"/>
                 <path d="M9.47275 9.2303C9.48688 9.50686 9.39122 9.77782 9.20659 9.98422C9.02196 10.1906 8.76329 10.3158 8.48687 10.3324H0.987254C0.710829 10.3158 0.452166 10.1906 0.267536 9.98422C0.0829064 9.77782 -0.0127533 9.50686 0.0013679 9.2303V1.10212C-0.0127533 0.825558 0.0829064 0.554604 0.267536 0.348206C0.452166 0.141807 0.710829 0.0166639 0.987254 0H8.48687C8.76329 0.0166639 9.02196 0.141807 9.20659 0.348206C9.39122 0.554604 9.48688 0.825558 9.47275 1.10212V9.2303Z"/>
@@ -64,9 +65,10 @@
     
     <div id="homePage">
         <div id="title">
+            <span onclick="openAndCloseNavBar();" class="material-symbols-outlined" id="menu">menu</span>
             <h1>PomoTick</h1>
         </div>
-        <span style=" width: 80vw; height: 700px; display: flex; justify-content: space-around;">
+        <span id="tools">
             <div id="todo-list">
                 <h2>To-Do List</h2>
                 <ul id="todo">
@@ -401,6 +403,17 @@
 
     <script>
         //navbar
+
+        function openAndCloseNavBar(){
+            navbar = document.getElementById("navbar");
+            console.log("pressionado");
+            if(navbar.style.display === "none" || navbar.style.display === ''){
+                navbar.style.display = "flex";
+            }else{
+                navbar.style.display = "none";
+            }
+        }
+
         function muteAudio(){
             audio = document.getElementById("Sweden");
             var isMuted = audio.muted;

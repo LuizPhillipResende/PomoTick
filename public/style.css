@@ -1,5 +1,48 @@
 @import url('https://fonts.googleapis.com/css2?family=Lexend+Exa:wght@300;400;500;600;700;800&display=swap');
 
+@media only screen and (max-width: 750px){
+    body #navbar{
+        display: none;
+        z-index: 888;
+    }
+
+    #title #menu{
+        display: block;
+        position: fixed;
+        left: 20px;
+    }
+
+    body #navbar #menuClose{
+        display: block;
+    }
+
+    #homePage #title{
+        width: 100vw;
+    }
+
+    #tools{
+        justify-self: center;
+    }
+}
+
+@media only screen and (max-width: 1350px){
+
+    #homePage #tools{
+        display: grid;
+    }
+
+    #tools #todo-list{
+        margin-bottom: 100px;
+        height: 600px;
+    }
+    
+    #tools #pomodoro{
+        height: 600px;
+        margin-bottom: 200px    ;
+    }
+  }
+
+
 *::-webkit-scrollbar {
     width: 12px;
   }
@@ -24,7 +67,7 @@
 
 body{
     color: white;
-    background: url('./HorizontalBackground.png') no-repeat center center;
+    background: url('./HorizontalBackground.png') no-repeat center center fixed;
     background-size: 100% 100%;
     font-family: 'Lexend Exa', sans-serif;
     font-weight: 300;
@@ -70,6 +113,14 @@ centered{
 
 h1{
     font-size: 4rem;
+}
+
+.hide{
+    display: none;
+}
+
+.notHide{
+    display: flex;
 }
 
 #cardLogin{
@@ -144,7 +195,7 @@ group a{
     backdrop-filter: blur(10px);
     background-color: #EEEEEEAA;
     height: 100%;
-    width: 5%;
+    width: 100px;
     justify-content: space-between;
 }
 
@@ -195,6 +246,14 @@ group a{
     align-content: start;
 }
 
+#menu{
+    display: none;
+}
+
+#navbar #menuClose{
+    display: none;
+}
+
 #title{
     color: #902F72;
     height: 100px;
@@ -207,6 +266,13 @@ group a{
     border-radius: 0px 0px 25px 25px;
     margin-bottom: 100px;
     justify-self: center;
+}
+
+#tools{
+    width: 80vw; 
+    height: 700px; 
+    display: flex; 
+    justify-content: space-around;
 }
 
 #todo-list{
@@ -225,6 +291,8 @@ group a{
 }
 
 #todo{
+    padding-top: 20px;
+    padding-bottom: 20px;
     overflow: auto;
     height: 62%;
 }
