@@ -35,6 +35,7 @@ body{
 centered{
     justify-self: center;
     align-self: center;
+    position: absolute;
 }
 
 #logo{
@@ -161,7 +162,7 @@ group a{
     stroke-width: 1;
     stroke-dashoffset: 100;
     stroke-dasharray: 100;
-    animation: logoBuild 3s ease forwards, toColor 0.5s ease forwards 2s;
+    animation: logoBuild 3s ease forwards, toColorPink 0.5s ease forwards 2s;
 }
 
 
@@ -171,7 +172,7 @@ group a{
     }
 }
 
-@keyframes toColor {
+@keyframes toColorPink {
     to{
         fill: #902F72;
         stroke: transparent;

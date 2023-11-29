@@ -4,11 +4,11 @@
   "description": "Um website com funcionalidade de cronometro pomodoro e to-do list",
   "main": "./PomoTick/src/index.js",
   "scripts": {
-    "start": "node --experimental-specifier-resolution=node --trace-warnings src/index.js",
+    "start": "node ./src/index.js",
     "serve": "nodemon --exec babel-node ./src/index.js"
   },
   "engines": {
-    "node": "14.x"
+    "node": "18.x"
   },
   "author": "Luiz Phillip CompJunior",
   "license": "ISC",
@@ -23,7 +23,8 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^7.6.4",
     "mongoose-role": "^3.0.5",
-    "slugify": "^1.6.6"
+    "slugify": "^1.6.6",
+    "nodemon": "^3.0.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.23.0",
