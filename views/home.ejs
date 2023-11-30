@@ -12,6 +12,9 @@
     <audio id="Sweden" loop>
         <source src="/Sweden.mp3" type="audio/mp3">
     </audio>
+    <audio id="notificationPomodoro">
+        <source src="/notificationPomodoro.mp3" type="audio/mp3">
+    </audio>
     <div id="navbar">
         <span>
             <span onclick="openAndCloseNavBar();" class="material-symbols-outlined" id="menuClose">close</span>
@@ -31,14 +34,14 @@
             <label style="color: #902F72; font-size: 10px; font-weight: 500;" for="history">Histórico</label>
         </span>
         <span>
-            <a id="admin" style="text-decoration: none;" href="#" class="material-symbols-outlined">
+            <a id="admin" style="text-decoration: none; display: none;" href="/admin" class="material-symbols-outlined">
                 shield_person
             </a>
-            <label style="color: #902F72; font-size: 10px; font-weight: 500;" for="history">Admin</label>
+            <label id="adminLabel" style="color: #902F72; font-size: 10px; font-weight: 500; display: none;" for="admin">Admin</label>
             <a id="logout" style="text-decoration: none;" href="/logout" class="material-symbols-outlined">
                 logout
             </a>
-            <label style="color: #902F72; font-size: 10px; font-weight: 500;" for="history">Sair</label>
+            <label style="color: #902F72; font-size: 10px; font-weight: 500;" for="logout">Sair</label>
             <br>
             <br>
             <label style="color: #902F72; font-size: 10px; font-weight: 500;" for="Camada_1">Desenvolvido por Luiz Phillip</label>
@@ -53,9 +56,9 @@
             <thead>
                 <tr>
                     <th>Atividade</th>
-                    <th>Concluída?</th>
-                    <th>Relatório?</th>
-                    <th>Excluido?</th>
+                    <th>Concluída</th>
+                    <th>Relatório</th>
+                    <th>Excluido</th>
                 </tr>
             </thead>
             <tbody id="todoBody">
@@ -302,6 +305,7 @@
                             clearTimeout(timeout);
                             audio.pause();
                             audio.currentTime = 0;
+                            document.getElementById("notificationPomodoro").play();
                             restTimer();
                         }else{
                         k = ((i/duration) * 100);
@@ -354,6 +358,7 @@
                             document.getElementById("c2").style.stroke = '#FFF';
                             clearInterval(timerInterval);
                             clearTimeout(timeout);
+                            document.getElementById("notificationPomodoro").play();
                             startTimer(true);
                         }else{
                         k = ((i/duration) * 100);
@@ -384,6 +389,7 @@
                 minutos = "0" + minutos;
             }
             document.getElementById("counterText").innerHTML = minutos + ":" + segundos;
+            document.title = "PomoTick (" + minutos + ":" + segundos + ")";
         }
 
         function resetTimerDisplay() {
@@ -393,6 +399,7 @@
             btn.innerText = 'Iniciar';
         
             document.getElementById("counterText").innerHTML = "25:00";
+            document.title = "PomoTick";
         
             document.getElementById("c1").style.strokeDasharray = '';
             document.getElementById("c2").style.strokeDasharray = '';
@@ -436,6 +443,17 @@
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
+                    
+                    //verificando se é admin
+                    if(data.userData.role === "user"){
+                        document.getElementById("admin").remove();
+                        document.getElementById("adminLabel").remove();
+                    }else{
+                        document.getElementById("admin").style.display = "";
+                        document.getElementById("adminLabel").style.display = "";
+                    }
+
+                    //carregando tabela
                     const todoList = data.todo.todoList;
                     renderToDoTable(todoList);
                 } else {

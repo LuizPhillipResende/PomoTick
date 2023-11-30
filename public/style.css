@@ -1,3 +1,4 @@
+/*Prefixed by https://autoprefixer.github.io (Para garantir maior compatibilidade)*/
 @import url('https://fonts.googleapis.com/css2?family=Lexend+Exa:wght@300;400;500;600;700;800&display=swap');
 
 @media only screen and (max-width: 750px){
@@ -21,13 +22,15 @@
     }
 
     #tools{
-        justify-self: center;
+        -ms-grid-column-align: center;
+            justify-self: center;
     }
 }
 
 @media only screen and (max-width: 1350px){
 
     #homePage #tools{
+        display: -ms-grid;
         display: grid;
     }
 
@@ -62,7 +65,8 @@
     scrollbar-color: #b25194 #902F72;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
 }
 
 body{
@@ -71,13 +75,17 @@ body{
     background-size: 100% 100%;
     font-family: 'Lexend Exa', sans-serif;
     font-weight: 300;
+    display: -ms-grid;
     display: grid;
     height: 100vh;
 }
 
 centered{
-    justify-self: center;
-    align-self: center;
+    -ms-grid-column-align: center;
+        justify-self: center;
+    -ms-flex-item-align: center;
+        -ms-grid-row-align: center;
+        align-self: center;
     position: absolute;
 }
 
@@ -94,13 +102,28 @@ centered{
     stroke-width: 1;
     stroke-dashoffset: 100;
     stroke-dasharray: 100;
-    animation: logoBuild 3s ease forwards, toColor 0.5s ease forwards 2s;
+    -webkit-animation: logoBuild 3s ease forwards, toColor 0.5s ease forwards 2s;
+            animation: logoBuild 3s ease forwards, toColor 0.5s ease forwards 2s;
+}
+
+
+@-webkit-keyframes logoBuild {
+    to{
+        stroke-dashoffset: 0;
+    }
 }
 
 
 @keyframes logoBuild {
     to{
         stroke-dashoffset: 0;
+    }
+}
+
+@-webkit-keyframes toColor {
+    to{
+        fill: white;
+        stroke: transparent;
     }
 }
 
@@ -120,15 +143,26 @@ h1{
 }
 
 .notHide{
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
 }
 
 #cardLogin{
+    height: -webkit-fit-content;
+    height: -moz-fit-content;
     height: fit-content;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    backdrop-filter: blur(10px);
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
     background-color: #eeeeeeaa;
     border-radius: 25px;
 }
@@ -148,6 +182,7 @@ h1{
 #cardLogin form{
     padding-top: 30px;
     padding-bottom: 30px;
+    display: -ms-grid;
     display: grid;
     width: 80%;
     height: 90%;
@@ -167,9 +202,15 @@ h1{
 }
 
 group{
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: space-evenly;
-    align-items: center;
+    -webkit-box-pack: space-evenly;
+        -ms-flex-pack: space-evenly;
+            justify-content: space-evenly;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
 }
 
 group a{
@@ -189,19 +230,32 @@ group a{
 #navbar{
     padding-top: 20px;
     position: fixed;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    backdrop-filter: blur(10px);
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
     background-color: #EEEEEEAA;
     height: 100%;
     width: 100px;
-    justify-content: space-between;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
 }
 
 #navbar span{
+    display: -ms-grid;
     display: grid;
-    justify-content: space-evenly;
+    -webkit-box-pack: space-evenly;
+        -ms-flex-pack: space-evenly;
+            justify-content: space-evenly;
     height: 25%;
     text-align: center;
 }
@@ -213,13 +267,21 @@ group a{
     stroke-width: 1;
     stroke-dashoffset: 100;
     stroke-dasharray: 100;
-    animation: logoBuild 3s ease forwards, toColorPink 0.5s ease forwards 2s;
+    -webkit-animation: logoBuild 3s ease forwards, toColorPink 0.5s ease forwards 2s;
+            animation: logoBuild 3s ease forwards, toColorPink 0.5s ease forwards 2s;
 }
 
 
 @keyframes logoBuild {
     to{
         stroke-dashoffset: 0;
+    }
+}
+
+@-webkit-keyframes toColorPink {
+    to{
+        fill: #902F72;
+        stroke: transparent;
     }
 }
 
@@ -241,9 +303,13 @@ group a{
 }
 
 #homePage{
+    display: -ms-grid;
     display: grid;
-    justify-content: center;
-    align-content: start;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -ms-flex-line-pack: start;
+        align-content: start;
 }
 
 #menu{
@@ -258,28 +324,40 @@ group a{
     color: #902F72;
     height: 100px;
     width: 500px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    backdrop-filter: blur(10px);
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
     background-color: #eeeeeeaa;
     border-radius: 0px 0px 25px 25px;
     margin-bottom: 100px;
-    justify-self: center;
+    -ms-grid-column-align: center;
+        justify-self: center;
 }
 
 #tools{
     width: 80vw; 
     height: 700px; 
+    display: -webkit-box; 
+    display: -ms-flexbox; 
     display: flex; 
-    justify-content: space-around;
+    -ms-flex-pack: distribute; 
+        justify-content: space-around;
 }
 
 #todo-list{
     text-align: center;
     height: 80%;
     width: 500px;
-    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
     background-color: #eeeeeeaa;
     border-radius: 25px;
 }
@@ -298,15 +376,19 @@ group a{
 }
 
 #todoText{
+    display: -ms-grid;
     display: grid;
     justify-items: center;
-    align-content: space-around;
+    -ms-flex-line-pack: distribute;
+        align-content: space-around;
 }
 
 
 #help-tip:hover p{
     display:block;
-    transform-origin: 100% 0%;
+    -webkit-transform-origin: 100% 0%;
+        -ms-transform-origin: 100% 0%;
+            transform-origin: 100% 0%;
     -webkit-animation: fadeIn 0.3s ease;
     animation: fadeIn 0.3s ease;
 }
@@ -325,7 +407,8 @@ group a{
 	left: 52%;
 	border-radius: 3px;
 /* 	border: 1px solid #E0E0E0; */
-	box-shadow: 0 0px 20px 0 rgba(0,0,0,0.1);
+	-webkit-box-shadow: 0 0px 20px 0 rgba(0,0,0,0.1);
+	        box-shadow: 0 0px 20px 0 rgba(0,0,0,0.1);
 	color: #37393D;
 	font-size: 12px;
 	line-height: 18px;
@@ -341,7 +424,9 @@ group a{
 	border-bottom-color:#FFFFFF;
 	top: -9px;
 	left: 50%;
-	transform: translate(-50%, -50%);
+	-webkit-transform: translate(-50%, -50%);
+	    -ms-transform: translate(-50%, -50%);
+	        transform: translate(-50%, -50%);
 }
 
 #help-tip p:after {
@@ -378,13 +463,15 @@ group a{
 }
 
 #btnAdd{
+    display: -ms-grid;
     display: grid;
     width: 90%;
     height: 50px;
     background-color: #902F72;
     border-radius: 10px;
     margin-top: 10px;
-    align-content: center;   
+    -ms-flex-line-pack: center;
+        align-content: center;   
     text-decoration: none;
     color: white;
 }
@@ -401,6 +488,8 @@ ul li {
   padding: 12px 8px 12px 40px;
   list-style-type: none;
   font-size: 18px;
+  -webkit-transition: 0.2s;
+  -o-transition: 0.2s;
   transition: 0.2s;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -427,7 +516,9 @@ ul li.checked::before {
   border-width: 0 2px 2px 0;
   top: 10px;
   left: 16px;
-  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+          transform: rotate(45deg);
   height: 15px;
   width: 7px;
 }
@@ -445,13 +536,21 @@ ul li.checked::before {
 }
 
 #pomodoro{
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     text-align: center;
     height: 80%;
     width: 500px;
-    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
     background-color: #eeeeeeaa;
     border-radius: 25px;
 
@@ -468,22 +567,28 @@ ul li.checked::before {
 }
 
 #btnPomodoro{
+    display: -ms-grid;
     display: grid;
     width: 90%;
     height: 50px;
     background-color: #902F72;
     border-radius: 10px;
     margin-top: 10px;
-    align-content: center;   
+    -ms-flex-line-pack: center;
+        align-content: center;   
     text-decoration: none;
     color: white;
 }
 
 
 circle {
+    -webkit-transition: all 1s linear;
+    -o-transition: all 1s linear;
     transition: all 1s linear;
   }
   #c1{
+    -webkit-transition: all 1s linear;
+    -o-transition: all 1s linear;
     transition: all 1s linear;
     stroke: #902F72;
     stroke-width: 3;
@@ -492,6 +597,8 @@ circle {
   }
   
   #c2 {
+    -webkit-transition: all 1s linear;
+    -o-transition: all 1s linear;
     transition: all 1s linear;
     stroke: #FFF;
     stroke-width: 3;
@@ -510,10 +617,14 @@ circle {
     width: 95%;
     height: 95%;
     background-color: #902F72AA;
-    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
     z-index: 999;
-    align-self: center;
-    justify-self: center;
+    -ms-flex-item-align: center;
+        -ms-grid-row-align: center;
+        align-self: center;
+    -ms-grid-column-align: center;
+        justify-self: center;
     border-radius: 10px;
     overflow: auto;
     padding: 50px;
@@ -542,6 +653,10 @@ circle {
     color: #902F72;
   }
 
+  tr:nth-child(even) button{
+    color: #902f72 !important;
+  }
+
   .fechar {
     top: 10px;
     right: 32px;
@@ -550,6 +665,7 @@ circle {
     font-size: 28px;
     font-weight: bold;
     position: absolute;
+    display: -ms-grid;
     display: grid;
     font-size: 2.5rem;
   }
@@ -558,4 +674,25 @@ circle {
   color: #b25194;
   text-decoration: none;
   cursor: pointer;
+}
+
+
+td .inputEdit{
+    border-radius: 10px;
+    color: white;
+    border: none;
+    background-color: #DDD5;
+    width: 100%;
+    height: 50px;
+    font-family: 'Lexend Exa', sans-serif;
+    font-weight: 300;
+}
+
+#adminBody button{
+    background-color: transparent;
+    color: white;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    border: none;
 }

@@ -2,14 +2,16 @@
     import {User, Todo} from './app/schemas/user.js';
     import express from 'express';
     import bcrypt from 'bcryptjs';
+    require("dotenv").config();
     import hasAccess from './app/middlewares/hasAccess.js';
-    import session from 'express-session';
+    import session from 'express-session';  
 
     const app = express();
     const port = process.env.PORT || 3000;
 
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: false }));
+
 
     // Usando o arquivo ejs
     app.set("view engine", 'ejs');
@@ -32,6 +34,30 @@
     //renderizar cadastro
     app.get("/signup", (req, res) => {
         res.render("signup");
+    });
+
+    //renderizar admin
+    app.get("/admin", async (req, res) => {
+        const email = req.session.User.email;
+        const isAdminUser = await User.findOne({email});
+
+        if(isAdminUser && isAdminUser.hasAccess('admin')){
+            res.render("admin");
+        }else{
+            res.render("home");
+        }
+    });
+
+    //renderizar home
+    app.get("/home", async (req, res) => {
+        const email = req.session.User.email;
+        const isAdminUser = await User.findOne({email});
+
+        if(isAdminUser && isAdminUser.hasAccess('user')){
+            res.render("home");
+        }else{
+            res.render("login");
+        }
     });
 
     //registrar usuario
@@ -98,6 +124,7 @@
         }
       });
 
+       //verificando dados do usuario e enviando pra homepage
       app.get('/loadUserData', async (req, res) => {
         if (!req.session.User) {
             return res.status(401).json({ success: false, error: 'Usuario não identificado!' });
@@ -106,10 +133,74 @@
         const email = req.session.User.email;
     
         try {
+            const userData = await User.findOne({email});
+            const todo = await Todo.findOne({ email });
+            res.json({ success: true, todo, userData });
+        } catch (error) {
+            res.json({ success: false, error: error.message });
+        }
+    });
+
+    app.get('/loadTodoDataAdmin', async (req, res) => {
+        if (!req.query.email) {
+            return res.status(401).json({ success: false, error: 'Usuario não identificado!' });
+        }
+        const email = req.query.email;
+        console.log(email);
+
+        try {
             const todo = await Todo.findOne({ email });
             res.json({ success: true, todo });
         } catch (error) {
             res.json({ success: false, error: error.message });
+        }
+    })
+
+    app.put('/updateUser', async (req, res) => {
+        if (!req.query._id) {
+            return res.status(400).json({ success: false});
+        }
+    
+        const _id = req.query._id;
+        const emailNow = User.findOne({_id}).email;
+        const {name, email, role} = req.body;
+
+    
+    
+        try {
+            const user = await User.findOneAndUpdate({_id}, {name, email, role});
+            const todo = await Todo.findOneAndUpdate({emailNow}, {email});
+        } catch (error) {
+            res.status(500).json({ success: false, error: error.message });
+        }
+    });
+    
+
+    app.delete('/deleteUser', async (req, res) => {
+        const email = req.query.email;
+
+        try {
+            const result = await User.deleteOne({ email });
+
+            if (result.deletedCount > 0) {
+                res.json({ success: true, message: 'Usuário excluído com sucesso.' });
+            } else {
+                res.json({ success: false, error: 'Nenhum usuário encontrado' });
+            }
+        } catch (error) {
+            res.status(500).json({ success: false, error: error.message });
+        }
+    });
+
+    app.get('/loadAllUserData', async (req, res) => {
+        try {
+            const allUsers = await User.find({});
+    
+            const allTodos = await Todo.find({});
+    
+            res.json({ success: true, allUsers, allTodos });
+        } catch (error) {
+            res.status(500).json({ success: false, error: error.message });
         }
     });
 

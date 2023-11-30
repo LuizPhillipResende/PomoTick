@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>PomoTick</title>
+        <link rel="stylesheet" href="/style.css">
+        <link rel="shortcut icon" href="/logo.png" type="image/x-icon">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    </head>
+<body onload="loadAdminCards()">
+    <div id="navbar">
+        <span>
+            <span onclick="openAndCloseNavBar();" class="material-symbols-outlined" id="menuClose">close</span>
+            <div id="logoHome" alt="Logo Comp Junior"><svg style="fill:#902F72" width="70" height="70" viewBox="-2 -2 35 35" xmlns="http://www.w3.org/2000/svg">
+                <path d="M13.003 20.6648C11.8363 20.6648 10.3338 19.8038 10.3338 18.6371V12.0545H2.20129C1.03028 12.0545 0.00134277 12.5582 0.00134277 13.7249V29.4388C0.00134277 30.6098 1.03028 31.8583 2.20129 31.8583H17.9152C19.0862 31.8583 19.8052 30.6098 19.8052 29.4388V20.6648H13.003Z"/>
+                <path d="M9.47275 9.2303C9.48688 9.50686 9.39122 9.77782 9.20659 9.98422C9.02196 10.1906 8.76329 10.3158 8.48687 10.3324H0.987254C0.710829 10.3158 0.452166 10.1906 0.267536 9.98422C0.0829064 9.77782 -0.0127533 9.50686 0.0013679 9.2303V1.10212C-0.0127533 0.825558 0.0829064 0.554604 0.267536 0.348206C0.452166 0.141807 0.710829 0.0166639 0.987254 0H8.48687C8.76329 0.0166639 9.02196 0.141807 9.20659 0.348206C9.39122 0.554604 9.48688 0.825558 9.47275 1.10212V9.2303Z"/>
+                <path d="M30.9986 30.7562C31.0128 31.0327 30.9171 31.3037 30.7325 31.5101C30.5478 31.7165 30.2892 31.8416 30.0127 31.8583H22.5131C22.2367 31.8416 21.978 31.7165 21.7934 31.5101C21.6088 31.3037 21.5131 31.0327 21.5272 30.7562V22.628C21.5131 22.3514 21.6088 22.0805 21.7934 21.8741C21.978 21.6677 22.2367 21.5425 22.5131 21.5259H30.0127C30.2892 21.5425 30.5478 21.6677 30.7325 21.8741C30.9171 22.0805 31.0128 22.3514 30.9986 22.628V30.7562Z"/>
+                <path d="M28.8848 0H13.3087C12.1412 0 11.1948 0.946399 11.1948 2.11384V17.69C11.1948 18.8574 12.1412 19.8038 13.3087 19.8038H28.8848C30.0522 19.8038 30.9986 18.8574 30.9986 17.69V2.11384C30.9986 0.946399 30.0522 0 28.8848 0Z"/></svg>
+            </div>
+            <a id="logout" style="text-decoration: none;" href="/home" class="material-symbols-outlined">
+                arrow_back
+            </a>
+            <label style="color: #902F72; font-size: 10px; font-weight: 500;" for="logout">Voltar</label>
+        </span>
+        <span>
+            <a id="logout" style="text-decoration: none;" href="/logout" class="material-symbols-outlined">
+                logout
+            </a>
+            <label style="color: #902F72; font-size: 10px; font-weight: 500;" for="logout">Sair</label>
+            <br>
+            <br>
+            <label style="color: #902F72; font-size: 10px; font-weight: 500;" for="Camada_1">Desenvolvido por Luiz Phillip</label>
+        </span>
+    </div>
+
+    <div id="historyTable" style="display: none;">
+        <span onclick="displayTable();" class="fechar">&times</span>
+        <h2>Relatório pessoal</h2>
+
+        <table id="todoTable">
+            <thead>
+                <tr>
+                    <th>Atividade</th>
+                    <th>Concluída</th>
+                    <th>Relatório</th>
+                    <th>Excluido</th>
+                </tr>
+            </thead>
+            <tbody id="todoBody">
+            </tbody>
+        </table>
+    </div>
+
+    <div id="homePage">
+        <div id="title">
+            <span onclick="openAndCloseNavBar();" class="material-symbols-outlined" id="menu">menu</span>
+            <h1>PomoTick</h1>
+        </div>
+        <div id="cards">
+            <table id="cardsTable">
+                <thead>
+                    <tr>
+                        <th>Exibir</th>
+                        <th>Nome</th>
+                        <th>Email</th>
+                        <th>Cargo</th>
+                    </tr>
+                </thead>
+                <tbody id="adminBody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+
+
+    <script>
+        function loadAdminCards() {
+            fetch('/loadAllUserData', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    const adminTableData = data.allUsers;
+                    const tbody = document.getElementById('adminBody');
+                    tbody.innerHTML = '';
+                
+                    adminTableData.forEach(item => {
+                        const tr = document.createElement('tr');
+                    
+                        const tdShow = document.createElement('td');
+                        const showButton = document.createElement('button');
+                        showButton.textContent = "visibility";
+                        showButton.classList.add('material-symbols-outlined');
+                        showButton.classList.add('showBtn');
+                        showButton.onclick = () => loadAdminTable(item.email);
+                        tdShow.appendChild(showButton);
+                        tr.appendChild(tdShow);
+                    
+                        const tdName = document.createElement('td');
+                        tdName.textContent = item.name;
+                        tdName.classList.add(item._id);
+                        tr.appendChild(tdName);
+                    
+                        const tdEmail = document.createElement('td');
+                        tdEmail.textContent = item.email;
+                        tdEmail.classList.add(item._id);
+                        tr.appendChild(tdEmail);
+                    
+                        const tdRole = document.createElement('td');
+                        tdRole.textContent = item.role;
+                        tdRole.classList.add(item._id);
+                        tr.appendChild(tdRole);
+                    
+                        const editButton = document.createElement('button');
+                        editButton.textContent = "edit";
+                        editButton.classList.add('material-symbols-outlined');
+                        editButton.id = 'edit' + item._id;
+                        editButton.style.textDecoration = 'none';
+                        editButton.onclick = () => editData(item);
+                        tr.appendChild(editButton);
+                    
+                        const deleteButton = document.createElement('button');
+                        deleteButton.textContent = "delete";
+                        deleteButton.classList.add('material-symbols-outlined');
+                        deleteButton.style.textDecoration = 'none';
+                        deleteButton.onclick = () => deleteData(item.email);
+                        tr.appendChild(deleteButton);
+                    
+                        tbody.appendChild(tr);
+                    });
+                
+                } else {
+                    console.error('Erro ao carregar dados do usuário: ', data.error);
+                }
+            })
+            .catch(error => console.error('Erro na solicitação', error));
+        }
+
+        function editData(user){
+            console.log(user._id);
+            tabelInput = document.getElementsByClassName(user._id);
+            console.log(tabelInput);
+            tabelInput = Array.from(tabelInput);
+            var i = 0;
+            tabelInput.forEach(item => {
+                
+                textBackup = item.textContent;
+                item.textContent = '';
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.value = textBackup;
+                input.classList.add('inputEdit');
+                if(i == 0){
+                    input.id = 'nameInput';
+                }else if(i == 1){
+                    input.id = 'emailInput';
+                }else{
+                    input.id = 'roleInput';
+                }
+                item.appendChild(input);
+                i++
+            })
+
+            const editButton = document.getElementById('edit' + user._id);
+            editButton.onclick = () => sendEditedData(user);
+            editButton.textContent = 'save';
+        }
+
+        function sendEditedData(user){
+            const nome = document.getElementById('nameInput');
+            const email = document.getElementById('emailInput');
+            const role = document.getElementById('roleInput');
+
+            const updatedData = {
+                name: nome.value,
+                email: email.value,
+                role: role.value
+            }
+
+            fetch('/updateUser?_id=' + user._id, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(updatedData)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Erro na solicitação: ${response.status}`);
+                }
+            })
+            .catch(error => console.error(error.message));
+            loadAdminCards();
+        }
+
+        function deleteData(email){
+            fetch(`/deleteUser?email=` + email, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Erro na solicitação: ${response.status}`);
+                }
+            })
+            .catch(error => console.error(error.message));
+            loadAdminCards();
+        }
+
+        function loadAdminTable(email) {
+            fetch('/loadTodoDataAdmin?email=' + email, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                const todo = data.todo.todoList;
+                const tbody = document.getElementById('todoBody');
+                tbody.innerHTML = '';
+                
+                todo.forEach(item => {
+                    if(item.relatorio){
+                        const tr = document.createElement('tr');
+
+                        const tdActivity = document.createElement('td');
+                        tdActivity.textContent = item.text;
+                        tr.appendChild(tdActivity);
+
+                        const tdCompleted = document.createElement('td');
+                        tdCompleted.textContent = item.checked ? 'Sim' : 'Não';
+                        tr.appendChild(tdCompleted);
+
+                        const tdReport = document.createElement('td');
+                        tdReport.textContent = item.relatorio ? 'Sim' : 'Não';
+                        tr.appendChild(tdReport);
+
+                        const tdDeleted = document.createElement('td');
+                        if(item.display === ''){
+                            tdDeleted.textContent = 'Não';
+                        }else{
+                            tdDeleted.textContent = 'Sim';
+                        }
+                        tr.appendChild(tdDeleted);
+
+                        tbody.appendChild(tr);
+                    }
+                });
+
+                document.getElementById('historyTable').style.display = '';
+            })
+            .catch(error => console.error('Erro na solicitação', error));
+        }
+
+        function displayTable(){
+            table = document.getElementById('historyTable');
+            if(table.style.display == 'none'){
+                table.style.display = '';
+            }else{
+                table.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

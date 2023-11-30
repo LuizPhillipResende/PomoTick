@@ -1,0 +1,41 @@
+PomoTick
+PomoTick é uma aplicação web que combina um cronômetro Pomodoro com um recurso de lista de tarefas. Este projeto foi desenvolvido utilizando Node.js, Express e MongoDB para autenticação de usuários e armazenamento de tarefas. Foi criado como parte das trilhas de Front-end e Back-end do processo trainee da empresa júnior CompJunior.
+
+Sobre o Projeto
+O tema do projeto foi aberto, então decidi criar algo que seria útil tanto para mim quanto para outras pessoas que gostam de se organizar por meio de listas e usar o sistema Pomodoro.
+
+Funcionalidades
+Autenticação de Usuário: Os usuários podem se cadastrar, fazer login e sair de forma segura. As senhas são criptografadas usando bcrypt para maior segurança.
+Funções de Usuário: A aplicação tem dois papéis de usuário: ‘user’ e ‘admin’, com diferentes níveis de acesso.
+Lista de Tarefas: Os usuários podem gerenciar suas listas de tarefas, marcar tarefas como concluídas e gerar relatórios.
+Painel de Admin: Usuários administradores têm acesso a um painel para visualizar e gerenciar tarefas de todos os usuários.
+Instalação
+Clone o repositório:
+git clone https://github.com/seu-nome-de-usuario/PomoTick.git
+
+Instale as dependências:
+npm install @babel/polyfill bcryptjs body-parser dotenv ejs express express-session fs joi jsonwebtoken mongoose mongoose-role nodemon slugify @babel/cli @babel/core @babel/node @babel/preset-env babel-plugin-module-alias babel-plugin-module-resolver --save
+
+Inicie o projeto:
+npm run serve
+
+Visite http://localhost:3000 em seu navegador para acessar a aplicação.
+Dependências
+Express
+MongoDB
+Mongoose
+bcryptjs
+express-session
+ejs
+Uso
+Acesse a aplicação em http://localhost:3000.
+Cadastre-se para obter uma nova conta ou faça login se já tiver uma.
+Explore o cronômetro Pomodoro e as funcionalidades da lista de tarefas.
+Sobre a CompJunior
+A CompJunior é uma empresa júnior voltada pra área de TI na Universidade Federal de Lavras(UFLA). Faço parte do processo trainee 2023/2.
+
+Contribuições
+Contribuições são bem-vindas! Sinta-se à vontade para abrir problemas e solicitações de alteração.
+
+Licença
+Este projeto está licenciado sob a Licença ISC.

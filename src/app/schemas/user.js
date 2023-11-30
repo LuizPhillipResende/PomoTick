@@ -32,6 +32,8 @@ const userSchema = mongoose.Schema({
     }
 });
 
+
+
 userSchema.plugin(require('mongoose-role'), {
     roles: ['user', 'admin'],
     accessLevels: {
@@ -53,9 +55,9 @@ const todoUserSchema = mongoose.Schema({
 
 const Todo = mongoose.model('Todo', todoUserSchema);
 const User = mongoose.model('User', userSchema);
-export {User, Todo};
 
-var newUser = new User({ email: 'email@email.com', role: 'user' })
+
+export {User, Todo};
 
 
 
