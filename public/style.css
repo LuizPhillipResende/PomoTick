@@ -1,6 +1,20 @@
 /*Prefixed by https://autoprefixer.github.io (Para garantir maior compatibilidade)*/
 @import url('https://fonts.googleapis.com/css2?family=Lexend+Exa:wght@300;400;500;600;700;800&display=swap');
 
+@media screen and (max-width: 500px) {
+    #title h1{
+        font-size: 2.5rem !important;
+    }
+
+    #todo-list{
+        width: 90vw !important;
+    }
+
+    #pomodoro{
+        width: 90vw !important;
+    }
+}
+
 @media only screen and (max-width: 750px){
     body #navbar{
         display: none;
