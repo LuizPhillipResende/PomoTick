@@ -11,7 +11,7 @@ Lista de Tarefas: Os usuários podem gerenciar suas listas de tarefas, marcar ta
 Painel de Admin: Usuários administradores têm acesso a um painel para visualizar e gerenciar tarefas de todos os usuários.
 Instalação
 Clone o repositório:
-git clone https://github.com/seu-nome-de-usuario/PomoTick.git
+git clone https://github.com/LuizPhillipResende/PomoTick.git
 
 Instale as dependências:
 npm install @babel/polyfill bcryptjs body-parser dotenv ejs express express-session fs joi jsonwebtoken mongoose mongoose-role nodemon slugify @babel/cli @babel/core @babel/node @babel/preset-env babel-plugin-module-alias babel-plugin-module-resolver --save
