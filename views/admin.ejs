@@ -1,168 +1,138 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PomoTick - Admin</title>
-    <link rel="stylesheet" href="/style.css">
-    <link rel="shortcut icon" href="/logo.png" type="image/x-icon">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PomoTick · Admin</title>
+  <link rel="shortcut icon" href="/logo.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;1,300&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20,300,0,0" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
 </head>
-<body onload="loadAdminCards()">
-    <div id="navbar">
-        <div class="nav-block">
-            <button type="button" id="menuToggle" class="icon-button material-symbols-outlined">menu</button>
-            <div id="logoHome">
-                <svg width="70" height="70" viewBox="-2 -2 35 35" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M13.003 20.6648C11.8363 20.6648 10.3338 19.8038 10.3338 18.6371V12.0545H2.20129C1.03028 12.0545 0.00134277 12.5582 0.00134277 13.7249V29.4388C0.00134277 30.6098 1.03028 31.8583 2.20129 31.8583H17.9152C19.0862 31.8583 19.8052 30.6098 19.8052 29.4388V20.6648H13.003Z"/>
-                    <path d="M9.47275 9.2303C9.48688 9.50686 9.39122 9.77782 9.20659 9.98422C9.02196 10.1906 8.76329 10.3158 8.48687 10.3324H0.987254C0.710829 10.3158 0.452166 10.1906 0.267536 9.98422C0.0829064 9.77782 -0.0127533 9.50686 0.0013679 9.2303V1.10212C-0.0127533 0.825558 0.0829064 0.554604 0.267536 0.348206C0.452166 0.141807 0.710829 0.0166639 0.987254 0H8.48687C8.76329 0.0166639 9.02196 0.141807 9.20659 0.348206C9.39122 0.554604 9.48688 0.825558 9.47275 1.10212V9.2303Z"/>
-                    <path d="M30.9986 30.7562C31.0128 31.0327 30.9171 31.3037 30.7325 31.5101C30.5478 31.7165 30.2892 31.8416 30.0127 31.8583H22.5131C22.2367 31.8416 21.978 31.7165 21.7934 31.5101C21.6088 31.3037 21.5131 31.0327 21.5272 30.7562V22.628C21.5131 22.3514 21.6088 22.0805 21.7934 21.8741C21.978 21.6677 22.2367 21.5425 22.5131 21.5259H30.0127C30.2892 21.5425 30.5478 21.6677 30.7325 21.8741C30.9171 22.0805 31.0128 22.3514 30.9986 22.628V30.7562Z"/>
-                    <path d="M28.8848 0H13.3087C12.1412 0 11.1948 0.946399 11.1948 2.11384V17.69C11.1948 18.8574 12.1412 19.8038 13.3087 19.8038H28.8848C30.0522 19.8038 30.9986 18.8574 30.9986 17.69V2.11384C30.9986 0.946399 30.0522 0 28.8848 0Z"/>
-                </svg>
-            </div>
-        </div>
-        <div class="nav-block nav-actions">
-            <a class="icon-button material-symbols-outlined" href="/home">arrow_back</a>
-            <a class="icon-button material-symbols-outlined" href="/logout">logout</a>
-        </div>
+<body>
+<aside id="sidebar">
+  <div class="sidebar-top">
+    <div class="brand">
+      <svg width="28" height="28" viewBox="0 0 31 32" fill="none"><path d="M13.003 20.6648C11.8363 20.6648 10.3338 19.8038 10.3338 18.6371V12.0545H2.20129C1.03028 12.0545 0 12.5582 0 13.7249V29.4388C0 30.6098 1.03028 31.8583 2.20129 31.8583H17.9152C19.0862 31.8583 19.8052 30.6098 19.8052 29.4388V20.6648H13.003Z" fill="currentColor"/><path d="M9.47275 9.2303C9.48688 9.507 9.39122 9.778 9.20659 9.984C9.02196 10.191 8.76329 10.316 8.48687 10.332H0.987254C0.710829 10.316 0.452166 10.191 0.267536 9.984C0.0829064 9.778 -0.0127533 9.507 0.0013679 9.2303V1.10212C-0.0127533 0.826 0.0829064 0.555 0.267536 0.348C0.452166 0.142 0.710829 0.017 0.987254 0H8.48687C8.76329 0.017 9.02196 0.142 9.20659 0.348C9.39122 0.555 9.48688 0.826 9.47275 1.10212V9.2303Z" fill="currentColor"/><path d="M30.9986 30.7562C31.0128 31.033 30.9171 31.304 30.7325 31.51C30.5478 31.717 30.2892 31.842 30.0127 31.858H22.5131C22.2367 31.842 21.978 31.717 21.7934 31.51C21.6088 31.304 21.5131 31.033 21.5272 30.7562V22.628C21.5131 22.351 21.6088 22.08 21.7934 21.874C21.978 21.668 22.2367 21.543 22.5131 21.526H30.0127C30.2892 21.543 30.5478 21.668 30.7325 21.874C30.9171 22.08 31.0128 22.351 30.9986 22.628V30.7562Z" fill="currentColor"/><path d="M28.8848 0H13.3087C12.1412 0 11.1948 0.946 11.1948 2.114V17.69C11.1948 18.857 12.1412 19.804 13.3087 19.804H28.8848C30.0522 19.804 30.9986 18.857 30.9986 17.69V2.114C30.9986 0.946 30.0522 0 28.8848 0Z" fill="currentColor"/></svg>
+      <span class="brand-name">PomoTick</span>
     </div>
+    <nav class="sidebar-nav">
+      <a class="nav-item" href="/home"><span class="material-symbols-rounded">arrow_back</span><span>Voltar</span></a>
+    </nav>
+  </div>
+  <div class="sidebar-bottom">
+    <a class="nav-item" href="/logout"><span class="material-symbols-rounded">logout</span><span>Sair</span></a>
+  </div>
+</aside>
 
-    <main id="homePage">
-        <section id="adminPanel" class="card">
-            <div class="card-header">
-                <h2>Administração</h2>
-                <span>Visualize e altere informações dos usuários.</span>
-            </div>
-            <div class="admin-table-wrapper">
-                <table id="cardsTable">
-                    <thead>
-                        <tr>
-                            <th>Exibir</th>
-                            <th>Nome</th>
-                            <th>Email</th>
-                            <th>Cargo</th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody id="adminBody"></tbody>
-                </table>
-            </div>
-        </section>
-    </main>
+<main id="appMain">
+  <header class="top-bar">
+    <div>
+      <h1>Painel Admin</h1>
+      <p class="greeting-sub">Gerencie usuários da plataforma</p>
+    </div>
+  </header>
 
-    <script>
-        function loadAdminCards() {
-            fetch('/loadAllUserData', {
-                method: 'GET',
-                headers: { 'Content-Type': 'application/json' }
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (!data.success) {
-                    console.error('Erro ao carregar dados do usuário: ', data.error);
-                    return;
-                }
-                const tbody = document.getElementById('adminBody');
-                tbody.innerHTML = '';
-                data.allUsers.forEach(item => {
-                    const tr = document.createElement('tr');
-                    const tdShow = document.createElement('td');
-                    const showButton = document.createElement('button');
-                    showButton.textContent = 'visibility';
-                    showButton.className = 'material-symbols-outlined icon-button';
-                    showButton.onclick = () => loadAdminTable(item.email);
-                    tdShow.appendChild(showButton);
-                    tr.appendChild(tdShow);
+  <section class="panel active" id="panel-admin">
+    <div class="panel-head">
+      <div><h2>Usuários</h2><span class="panel-sub" id="userCountLabel"></span></div>
+      <button class="btn-ghost" id="btnRefreshUsers">
+        <span class="material-symbols-rounded">refresh</span> Atualizar
+      </button>
+    </div>
+    <div id="adminMsg" class="msg-box hidden"></div>
+    <div id="usersTable" class="users-table"></div>
+  </section>
+</main>
 
-                    const tdName = document.createElement('td');
-                    tdName.textContent = item.name;
-                    tdName.classList.add(item._id);
-                    tr.appendChild(tdName);
+<div id="editModal" class="overlay hidden">
+  <div class="overlay-card small-card">
+    <div class="overlay-head">
+      <h3>Editar Usuário</h3>
+      <button class="icon-btn" id="closeEditModal"><span class="material-symbols-rounded">close</span></button>
+    </div>
+    <input type="hidden" id="editUserId">
+    <div class="form-group"><label>Nome</label><input type="text" id="editName"></div>
+    <div class="form-group"><label>Email</label><input type="email" id="editEmail"></div>
+    <div class="form-group">
+      <label>Role</label>
+      <select id="editRole">
+        <option value="user">Usuário</option>
+        <option value="admin">Admin</option>
+      </select>
+    </div>
+    <button class="btn-main" id="btnConfirmEdit">Salvar</button>
+    <div id="editMsg" class="msg-box hidden"></div>
+  </div>
+</div>
 
-                    const tdEmail = document.createElement('td');
-                    tdEmail.textContent = item.email;
-                    tdEmail.classList.add(item._id);
-                    tr.appendChild(tdEmail);
+<script>
+async function loadUsers() {
+  const r    = await fetch('/api/admin/users');
+  const data = await r.json();
+  if (!data.success) return;
+  const label = document.getElementById('userCountLabel');
+  const table = document.getElementById('usersTable');
+  label.textContent = `${data.users.length} usuário(s) registrado(s)`;
 
-                    const tdRole = document.createElement('td');
-                    tdRole.textContent = item.role;
-                    tdRole.classList.add(item._id);
-                    tr.appendChild(tdRole);
+  if (!data.users.length) { table.innerHTML = '<p class="empty-state">Nenhum usuário encontrado.</p>'; return; }
 
-                    const tdActions = document.createElement('td');
-                    const editButton = document.createElement('button');
-                    editButton.textContent = 'edit';
-                    editButton.className = 'material-symbols-outlined icon-button';
-                    editButton.onclick = () => editData(item);
-                    tdActions.appendChild(editButton);
-                    const deleteButton = document.createElement('button');
-                    deleteButton.textContent = 'delete';
-                    deleteButton.className = 'material-symbols-outlined icon-button';
-                    deleteButton.onclick = () => deleteData(item.email);
-                    tdActions.appendChild(deleteButton);
-                    tr.appendChild(tdActions);
+  table.innerHTML = `
+    <table>
+      <thead><tr><th>Nome</th><th>Email</th><th>Role</th><th>Cadastro</th><th>Ações</th></tr></thead>
+      <tbody>
+        ${data.users.map(u => `
+          <tr>
+            <td>${u.name}</td>
+            <td>${u.email}</td>
+            <td><span class="role-tag ${u.role}">${u.role}</span></td>
+            <td>${new Date(u.createdAt).toLocaleDateString('pt-BR')}</td>
+            <td class="action-cell">
+              <button class="btn-ghost-sm" onclick="openEdit('${u._id}','${u.name}','${u.email}','${u.role}')">Editar</button>
+              <button class="btn-danger-sm" onclick="deleteUser('${u._id}')">Excluir</button>
+            </td>
+          </tr>`).join('')}
+      </tbody>
+    </table>`;
+}
 
-                    tbody.appendChild(tr);
-                });
-            })
-            .catch(error => console.error('Erro na solicitação', error));
-        }
+function openEdit(id, name, email, role) {
+  document.getElementById('editUserId').value = id;
+  document.getElementById('editName').value   = name;
+  document.getElementById('editEmail').value  = email;
+  document.getElementById('editRole').value   = role;
+  document.getElementById('editModal').classList.remove('hidden');
+}
 
-        function editData(user) {
-            const cells = Array.from(document.getElementsByClassName(user._id));
-            cells.forEach((cell, index) => {
-                const value = cell.textContent;
-                cell.innerHTML = '';
-                const input = document.createElement('input');
-                input.type = 'text';
-                input.value = value;
-                input.className = 'inputEdit';
-                if (index === 0) input.id = 'nameInput';
-                if (index === 1) input.id = 'emailInput';
-                if (index === 2) input.id = 'roleInput';
-                cell.appendChild(input);
-            });
-            const editButton = document.querySelector('#edit' + user._id);
-            if (editButton) {
-                editButton.textContent = 'save';
-                editButton.onclick = () => sendEditedData(user);
-            }
-        }
+document.getElementById('closeEditModal').onclick = () => document.getElementById('editModal').classList.add('hidden');
 
-        function sendEditedData(user) {
-            const nome = document.getElementById('nameInput');
-            const email = document.getElementById('emailInput');
-            const role = document.getElementById('roleInput');
-            fetch('/updateUser?_id=' + user._id, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name: nome.value, email: email.value, role: role.value })
-            })
-            .then(response => response.json())
-            .then(() => loadAdminCards())
-            .catch(error => console.error(error.message));
-        }
+document.getElementById('btnConfirmEdit').onclick = async () => {
+  const id    = document.getElementById('editUserId').value;
+  const name  = document.getElementById('editName').value.trim();
+  const email = document.getElementById('editEmail').value.trim();
+  const role  = document.getElementById('editRole').value;
+  const msg   = document.getElementById('editMsg');
 
-        function loadAdminTable(email) {
-            fetch('/loadTodoDataAdmin?email=' + encodeURIComponent(email), {
-                method: 'GET',
-                headers: { 'Content-Type': 'application/json' }
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success && data.todo && data.todo.todoList) {
-                    alert('Tarefas carregadas no relatório.');
-                }
-            })
-            .catch(error => console.error(error.message));
-        }
+  const r    = await fetch(`/api/admin/users/${id}`, { method: 'PUT', headers: {'Content-Type':'application/json'}, body: JSON.stringify({name,email,role}) });
+  const data = await r.json();
+  msg.textContent = data.success ? 'Salvo!' : (data.error || 'Erro');
+  msg.className   = 'msg-box ' + (data.success ? 'success' : 'error');
+  if (data.success) { setTimeout(() => { document.getElementById('editModal').classList.add('hidden'); loadUsers(); }, 1000); }
+};
 
-        function deleteData(email) {
-            fetch('/deleteUser?email=' + encodeURIComponent(email), { method: 'DELETE' })
-            .then(response => response.json())
-            .then(() => loadAdminCards())
-            .catch(error => console.error(error.message));
-        }
-    </script>
+async function deleteUser(id) {
+  if (!confirm('Excluir este usuário?')) return;
+  const r    = await fetch(`/api/admin/users/${id}`, { method: 'DELETE' });
+  const data = await r.json();
+  const msg  = document.getElementById('adminMsg');
+  msg.textContent = data.success ? 'Usuário excluído.' : (data.error || 'Erro');
+  msg.className   = 'msg-box ' + (data.success ? 'success' : 'error');
+  if (data.success) loadUsers();
+}
+
+document.getElementById('btnRefreshUsers').onclick = loadUsers;
+loadUsers();
+</script>
 </body>
 </html>

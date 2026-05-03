@@ -1,10 +1,18 @@
+'use strict';
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb+srv://LpResende:HkEwx7Wo3uBCKHoc@cluster0.zhv2qwo.mongodb.net/?retryWrites=true&w=majority', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+const connectDB = async () => {
+  try {
+    const uri = process.env.MONGODB_URI;
+    if (!uri) {
+      throw new Error('MONGODB_URI não definida no .env');
+    }
+    await mongoose.connect(uri);
+    console.log('✅ MongoDB conectado');
+  } catch (err) {
+    console.error('❌ Erro ao conectar MongoDB:', err.message);
+    process.exit(1);
+  }
+};
 
-mongoose.Promise = global.Promise;
-
-export default mongoose; 
+module.exports = connectDB;

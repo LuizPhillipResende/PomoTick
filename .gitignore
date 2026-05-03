@@ -1,3 +1,4 @@
-node_modules/*
-bcrypt.js-master/*
-node-v21.1.0/*
+node_modules/
+.env
+*.log
+.DS_Store

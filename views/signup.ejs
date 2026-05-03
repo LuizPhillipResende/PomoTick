@@ -1,87 +1,80 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PomoTick - Cadastro</title>
-    <link rel="stylesheet" href="/style.css">
-    <link rel="shortcut icon" href="/logo.png" type="image/x-icon">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend+Exa:wght@300;400;500;600;700;800&display=swap">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PomoTick · Criar Conta</title>
+  <link rel="shortcut icon" href="/logo.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
 </head>
-<body>
-    <main class="auth-page">
-        <section class="auth-card">
-            <div class="auth-header">
-                <h1>Cadastrar</h1>
-                <p>Crie sua conta e comece a usar o Pomodoro em equipe.</p>
-            </div>
-            <div id="errorMessage" class="error-message hidden"></div>
-            <div id="successMessage" class="success-message hidden"></div>
-            <form class="auth-form" id="signupForm">
-                <label for="name">Nome</label>
-                <input type="text" id="name" name="name" placeholder="Nome completo" required>
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="email@compjunior.com.br" required>
-                <label for="password">Senha</label>
-                <input type="password" id="password" name="password" placeholder="Mínimo 6 caracteres" required>
-                <div class="radio-group">
-                    <label><input type="radio" name="role" value="user" checked> Usuário</label>
-                    <label><input type="radio" name="role" value="admin"> Admin</label>
-                </div>
-                <button type="submit" class="button-primary">Cadastrar</button>
-            </form>
-            <p class="auth-footer">Já tem conta? <a href="/">Entrar</a></p>
-        </section>
-    </main>
-    <script>
-        document.getElementById('signupForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const name = document.getElementById('name').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const password = document.getElementById('password').value;
-            const role = document.querySelector('input[name="role"]:checked').value;
-            const errorDiv = document.getElementById('errorMessage');
-            const successDiv = document.getElementById('successMessage');
-            
-            errorDiv.classList.add('hidden');
-            successDiv.classList.add('hidden');
+<body class="auth-body">
+  <div class="auth-bg">
+    <div class="auth-blob b1"></div>
+    <div class="auth-blob b2"></div>
+    <div class="auth-blob b3"></div>
+  </div>
 
-            if (!name || !email || !password) {
-                errorDiv.textContent = 'Preencha todos os campos.';
-                errorDiv.classList.remove('hidden');
-                return;
-            }
+  <main class="auth-wrap">
+    <div class="auth-brand">
+      <svg width="40" height="40" viewBox="0 0 31 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M13.003 20.6648C11.8363 20.6648 10.3338 19.8038 10.3338 18.6371V12.0545H2.20129C1.03028 12.0545 0.00134277 12.5582 0.00134277 13.7249V29.4388C0.00134277 30.6098 1.03028 31.8583 2.20129 31.8583H17.9152C19.0862 31.8583 19.8052 30.6098 19.8052 29.4388V20.6648H13.003Z" fill="currentColor"/>
+        <path d="M9.47275 9.2303C9.48688 9.50686 9.39122 9.77782 9.20659 9.98422C9.02196 10.1906 8.76329 10.3158 8.48687 10.3324H0.987254C0.710829 10.3158 0.452166 10.1906 0.267536 9.98422C0.0829064 9.77782 -0.0127533 9.50686 0.0013679 9.2303V1.10212C-0.0127533 0.825558 0.0829064 0.554604 0.267536 0.348206C0.452166 0.141807 0.710829 0.0166639 0.987254 0H8.48687C8.76329 0.0166639 9.02196 0.141807 9.20659 0.348206C9.39122 0.554604 9.48688 0.825558 9.47275 1.10212V9.2303Z" fill="currentColor"/>
+        <path d="M30.9986 30.7562C31.0128 31.0327 30.9171 31.3037 30.7325 31.5101C30.5478 31.7165 30.2892 31.8416 30.0127 31.8583H22.5131C22.2367 31.8416 21.978 31.7165 21.7934 31.5101C21.6088 31.3037 21.5131 31.0327 21.5272 30.7562V22.628C21.5131 22.3514 21.6088 22.0805 21.7934 21.8741C21.978 21.6677 22.2367 21.5425 22.5131 21.5259H30.0127C30.2892 21.5425 30.5478 21.6677 30.7325 21.8741C30.9171 22.0805 31.0128 22.3514 30.9986 22.628V30.7562Z" fill="currentColor"/>
+        <path d="M28.8848 0H13.3087C12.1412 0 11.1948 0.946399 11.1948 2.11384V17.69C11.1948 18.8574 12.1412 19.8038 13.3087 19.8038H28.8848C30.0522 19.8038 30.9986 18.8574 30.9986 17.69V2.11384C30.9986 0.946399 30.0522 0 28.8848 0Z" fill="currentColor"/>
+      </svg>
+      <span>PomoTick</span>
+    </div>
 
-            if (password.length < 6) {
-                errorDiv.textContent = 'Senha deve ter no mínimo 6 caracteres.';
-                errorDiv.classList.remove('hidden');
-                return;
-            }
+    <div class="auth-card">
+      <h1>Criar conta</h1>
+      <p class="auth-sub">Junte-se à comunidade de estudos</p>
 
-            try {
-                const response = await fetch('/signup', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({name, email, password, role})
-                });
-                const data = await response.json();
+      <div id="msgBox" class="msg-box hidden"></div>
 
-                if (data.success) {
-                    successDiv.textContent = data.message;
-                    successDiv.classList.remove('hidden');
-                    setTimeout(() => {
-                        window.location.href = '/';
-                    }, 2000);
-                } else {
-                    errorDiv.textContent = data.message || 'Erro ao cadastrar.';
-                    errorDiv.classList.remove('hidden');
-                }
-            } catch (error) {
-                errorDiv.textContent = 'Erro ao conectar ao servidor.';
-                errorDiv.classList.remove('hidden');
-                console.error('Erro:', error);
-            }
-        });
-    </script>
+      <div class="form-group">
+        <label>Nome</label>
+        <input type="text" id="name" placeholder="Seu nome" autocomplete="name">
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" id="email" placeholder="seu@email.com" autocomplete="email">
+      </div>
+      <div class="form-group">
+        <label>Senha <small>(mínimo 6 caracteres)</small></label>
+        <input type="password" id="password" placeholder="••••••••" autocomplete="new-password">
+      </div>
+
+      <button class="btn-main" id="btnSignup">Criar conta</button>
+      <p class="auth-link">Já tem conta? <a href="/">Entrar</a></p>
+    </div>
+  </main>
+
+  <script>
+    const btn = document.getElementById('btnSignup');
+    const msg = document.getElementById('msgBox');
+
+    function showMsg(text, type) { msg.textContent = text; msg.className = 'msg-box ' + type; }
+
+    async function doSignup() {
+      const name     = document.getElementById('name').value.trim();
+      const email    = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      if (!name || !email || !password) return showMsg('Preencha todos os campos.', 'error');
+      if (password.length < 6) return showMsg('Senha deve ter ao menos 6 caracteres.', 'error');
+
+      btn.disabled = true; btn.textContent = 'Criando…';
+      try {
+        const r    = await fetch('/api/signup', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name, email, password }) });
+        const data = await r.json();
+        if (data.success) { showMsg('Conta criada! Redirecionando…', 'success'); setTimeout(() => window.location.href = '/', 1500); }
+        else { showMsg(data.error || 'Erro ao criar conta.', 'error'); btn.disabled = false; btn.textContent = 'Criar conta'; }
+      } catch { showMsg('Erro de conexão.', 'error'); btn.disabled = false; btn.textContent = 'Criar conta'; }
+    }
+
+    btn.addEventListener('click', doSignup);
+    document.addEventListener('keydown', e => { if (e.key === 'Enter') doSignup(); });
+  </script>
 </body>
 </html>

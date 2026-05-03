@@ -1,246 +1,396 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PomoTick</title>
-    <link rel="stylesheet" href="/style.css">
-    <link rel="shortcut icon" href="/logo.png" type="image/x-icon">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend+Exa:wght@300;400;500;600;700;800&display=swap">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PomoTick</title>
+  <link rel="shortcut icon" href="/logo.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;1,300&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20,300,0,0" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
 </head>
-<body onload="initPage()">
-    <audio id="backgroundMusic" loop>
-        <source src="/Sweden.mp3" type="audio/mp3">
-    </audio>
-    <audio id="alertTick">
-        <source src="/notificationPomodoro.mp3" type="audio/mp3">
-    </audio>
+<body>
+<audio id="bgMusic" loop><source src="/Sweden.mp3" type="audio/mpeg"></audio>
+<audio id="alertSound"><source src="/notificationPomodoro.mp3" type="audio/mpeg"></audio>
 
-    <div id="navbar">
-        <div class="nav-block">
-            <button type="button" id="menuToggle" class="icon-button material-symbols-outlined">menu</button>
-            <div id="logoHome" alt="Logo Comp Junior">
-                <svg width="70" height="70" viewBox="-2 -2 35 35" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M13.003 20.6648C11.8363 20.6648 10.3338 19.8038 10.3338 18.6371V12.0545H2.20129C1.03028 12.0545 0.00134277 12.5582 0.00134277 13.7249V29.4388C0.00134277 30.6098 1.03028 31.8583 2.20129 31.8583H17.9152C19.0862 31.8583 19.8052 30.6098 19.8052 29.4388V20.6648H13.003Z"/>
-                    <path d="M9.47275 9.2303C9.48688 9.50686 9.39122 9.77782 9.20659 9.98422C9.02196 10.1906 8.76329 10.3158 8.48687 10.3324H0.987254C0.710829 10.3158 0.452166 10.1906 0.267536 9.98422C0.0829064 9.77782 -0.0127533 9.50686 0.0013679 9.2303V1.10212C-0.0127533 0.825558 0.0829064 0.554604 0.267536 0.348206C0.452166 0.141807 0.710829 0.0166639 0.987254 0H8.48687C8.76329 0.0166639 9.02196 0.141807 9.20659 0.348206C9.39122 0.554604 9.48688 0.825558 9.47275 1.10212V9.2303Z"/>
-                    <path d="M30.9986 30.7562C31.0128 31.0327 30.9171 31.3037 30.7325 31.5101C30.5478 31.7165 30.2892 31.8416 30.0127 31.8583H22.5131C22.2367 31.8416 21.978 31.7165 21.7934 31.5101C21.6088 31.3037 21.5131 31.0327 21.5272 30.7562V22.628C21.5131 22.3514 21.6088 22.0805 21.7934 21.8741C21.978 21.6677 22.2367 21.5425 22.5131 21.5259H30.0127C30.2892 21.5425 30.5478 21.6677 30.7325 21.8741C30.9171 22.0805 31.0128 22.3514 30.9986 22.628V30.7562Z"/>
-                    <path d="M28.8848 0H13.3087C12.1412 0 11.1948 0.946399 11.1948 2.11384V17.69C11.1948 18.8574 12.1412 19.8038 13.3087 19.8038H28.8848C30.0522 19.8038 30.9986 18.8574 30.9986 17.69V2.11384C30.9986 0.946399 30.0522 0 28.8848 0Z"/>
-                </svg>
-            </div>
-        </div>
-        <div class="nav-block nav-actions">
-            <button type="button" id="volume" class="icon-button material-symbols-outlined" title="Música">volume_up</button>
-            <button type="button" id="profile" class="icon-button material-symbols-outlined" title="Perfil">account_circle</button>
-            <button type="button" id="history" class="icon-button material-symbols-outlined" title="Histórico">history</button>
-            <a id="adminLink" class="icon-button material-symbols-outlined hidden" href="/admin" title="Admin">shield_person</a>
-            <a id="logoutLink" class="icon-button material-symbols-outlined" href="/logout" title="Sair">logout</a>
-        </div>
+<!-- ═══ SIDEBAR ═══════════════════════════════════════════════════════════════ -->
+<aside id="sidebar">
+  <div class="sidebar-top">
+    <div class="brand">
+      <svg width="28" height="28" viewBox="0 0 31 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M13.003 20.6648C11.8363 20.6648 10.3338 19.8038 10.3338 18.6371V12.0545H2.20129C1.03028 12.0545 0 12.5582 0 13.7249V29.4388C0 30.6098 1.03028 31.8583 2.20129 31.8583H17.9152C19.0862 31.8583 19.8052 30.6098 19.8052 29.4388V20.6648H13.003Z" fill="currentColor"/>
+        <path d="M9.47275 9.2303C9.48688 9.507 9.39122 9.778 9.20659 9.984C9.02196 10.191 8.76329 10.316 8.48687 10.332H0.987254C0.710829 10.316 0.452166 10.191 0.267536 9.984C0.0829064 9.778 -0.0127533 9.507 0.0013679 9.2303V1.10212C-0.0127533 0.826 0.0829064 0.555 0.267536 0.348C0.452166 0.142 0.710829 0.017 0.987254 0H8.48687C8.76329 0.017 9.02196 0.142 9.20659 0.348C9.39122 0.555 9.48688 0.826 9.47275 1.10212V9.2303Z" fill="currentColor"/>
+        <path d="M30.9986 30.7562C31.0128 31.033 30.9171 31.304 30.7325 31.51C30.5478 31.717 30.2892 31.842 30.0127 31.858H22.5131C22.2367 31.842 21.978 31.717 21.7934 31.51C21.6088 31.304 21.5131 31.033 21.5272 30.7562V22.628C21.5131 22.351 21.6088 22.08 21.7934 21.874C21.978 21.668 22.2367 21.543 22.5131 21.526H30.0127C30.2892 21.543 30.5478 21.668 30.7325 21.874C30.9171 22.08 31.0128 22.351 30.9986 22.628V30.7562Z" fill="currentColor"/>
+        <path d="M28.8848 0H13.3087C12.1412 0 11.1948 0.946 11.1948 2.114V17.69C11.1948 18.857 12.1412 19.804 13.3087 19.804H28.8848C30.0522 19.804 30.9986 18.857 30.9986 17.69V2.114C30.9986 0.946 30.0522 0 28.8848 0Z" fill="currentColor"/>
+      </svg>
+      <span class="brand-name">PomoTick</span>
     </div>
 
-    <div id="profileModal" class="overlay hidden">
-        <button class="close-button" id="profileClose">close</button>
-        <div class="profile-card">
-            <div class="profile-header">
-                <img id="profilePicture" class="profile-picture" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='%23902F72'%3E%3Ccircle cx='50' cy='35' r='20'/%3E%3Cellipse cx='50' cy='70' rx='30' ry='25'/%3E%3C/svg%3E" alt="Perfil">
-                <input type="file" id="pictureUpload" accept="image/*" style="display:none;">
-                <button type="button" id="btnChangePicture" class="icon-button material-symbols-outlined">photo_camera</button>
-            </div>
-            <div class="profile-info">
-                <label>Nome</label>
-                <input type="text" id="inputName" placeholder="Seu nome">
-                <label>Bio</label>
-                <textarea id="inputBio" placeholder="Breve descrição sobre você" maxlength="200"></textarea>
-                <button type="button" class="button-primary" id="btnSaveProfile">Salvar alterações</button>
-            </div>
-        </div>
+    <nav class="sidebar-nav">
+      <button class="nav-item active" data-panel="todo">
+        <span class="material-symbols-rounded">checklist</span>
+        <span>Tarefas</span>
+      </button>
+      <button class="nav-item" data-panel="kanban">
+        <span class="material-symbols-rounded">view_kanban</span>
+        <span>Kanban</span>
+      </button>
+      <button class="nav-item" data-panel="pomodoro">
+        <span class="material-symbols-rounded">timer</span>
+        <span>Pomodoro</span>
+      </button>
+      <button class="nav-item" data-panel="jam">
+        <span class="material-symbols-rounded">groups</span>
+        <span>JAM</span>
+        <span id="jamBadge" class="badge hidden">●</span>
+      </button>
+    </nav>
+  </div>
+
+  <div class="sidebar-bottom">
+    <button class="nav-item" id="btnMusic" title="Música ambiente">
+      <span class="material-symbols-rounded" id="musicIcon">music_note</span>
+      <span>Música</span>
+    </button>
+    <button class="nav-item" id="btnProfile" title="Meu perfil">
+      <span class="material-symbols-rounded">person</span>
+      <span>Perfil</span>
+    </button>
+    <% if (user.role === 'admin') { %>
+    <a class="nav-item" href="/admin">
+      <span class="material-symbols-rounded">shield_person</span>
+      <span>Admin</span>
+    </a>
+    <% } %>
+    <a class="nav-item" href="/logout">
+      <span class="material-symbols-rounded">logout</span>
+      <span>Sair</span>
+    </a>
+  </div>
+</aside>
+
+<!-- ═══ MAIN ════════════════════════════════════════════════════════════════ -->
+<main id="appMain">
+
+  <!-- greeting bar -->
+  <header class="top-bar">
+    <div>
+      <h1 id="greeting">Bom dia ☀️</h1>
+      <p class="greeting-sub">O que você vai estudar hoje?</p>
+    </div>
+    <div class="top-bar-right">
+      <div id="clockDisplay" class="clock"></div>
+      <button class="avatar-btn" id="btnProfile2">
+        <img id="topAvatar" src="/default-avatar.svg" alt="avatar">
+      </button>
+    </div>
+  </header>
+
+  <!-- ─── TODO PANEL ──────────────────────────────────────────────────────── -->
+  <section class="panel active" id="panel-todo">
+    <div class="panel-head">
+      <div>
+        <h2>Lista de Tarefas</h2>
+        <span class="panel-sub">Organize o que precisa fazer hoje</span>
+      </div>
+      <button class="btn-ghost" id="btnOpenReport">
+        <span class="material-symbols-rounded">description</span> Relatório
+      </button>
     </div>
 
-    <div id="historyTable" class="overlay hidden">
-        <button class="close-button" id="historyClose">close</button>
-        <h2>Relatório de Tarefas</h2>
-        <div class="history-grid">
-            <table id="todoTable">
-                <thead>
-                    <tr>
-                        <th>Atividade</th>
-                        <th>Concluída</th>
-                        <th>Relatório</th>
-                        <th>Excluído</th>
-                    </tr>
-                </thead>
-                <tbody id="todoBody"></tbody>
-            </table>
-        </div>
+    <div class="todo-input-row">
+      <input id="todoInput" type="text" placeholder="Adicionar tarefa…" maxlength="200">
+      <label class="report-toggle" title="Salvar no relatório">
+        <input type="checkbox" id="todoInReport">
+        <span class="material-symbols-rounded">bookmark</span>
+      </label>
+      <button class="btn-add" id="btnAddTodo">
+        <span class="material-symbols-rounded">add</span>
+      </button>
     </div>
 
-    <main id="homePage">
-        <section id="hero">
-            <div>
-                <h1>PomoTick</h1>
-                <p>Organize tarefas e kanban, pratique pomodoro com ferramentas de foco.</p>
+    <ul id="todoList" class="todo-list"></ul>
+    <p id="todoEmpty" class="empty-state">Nenhuma tarefa ainda. Comece adicionando uma! 🌱</p>
+  </section>
+
+  <!-- ─── KANBAN PANEL ────────────────────────────────────────────────────── -->
+  <section class="panel" id="panel-kanban">
+    <div class="panel-head">
+      <div>
+        <h2>Kanban</h2>
+        <span class="panel-sub">Visualize seu fluxo de trabalho</span>
+      </div>
+      <button class="btn-ghost" id="btnNewBoard">
+        <span class="material-symbols-rounded">add</span> Novo quadro
+      </button>
+    </div>
+
+    <div id="kanbanBoards" class="kanban-boards-list"></div>
+    <p id="kanbanEmpty" class="empty-state">Nenhum quadro ainda. Crie um para começar! 📋</p>
+
+    <!-- board detail overlay -->
+    <div id="boardOverlay" class="overlay hidden">
+      <div class="overlay-card board-detail">
+        <div class="overlay-head">
+          <div>
+            <h3 id="boardTitle">Quadro</h3>
+            <span id="boardDesc" class="panel-sub"></span>
+          </div>
+          <button class="icon-btn" id="closeBoardOverlay"><span class="material-symbols-rounded">close</span></button>
+        </div>
+        <div id="boardColumns" class="board-columns"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── POMODORO PANEL ──────────────────────────────────────────────────── -->
+  <section class="panel" id="panel-pomodoro">
+    <div class="panel-head">
+      <div>
+        <h2>Pomodoro</h2>
+        <span class="panel-sub" id="pomPhaseLabel">Foco — prepare-se para concentrar</span>
+      </div>
+    </div>
+
+    <div class="pom-layout">
+      <div class="pom-left">
+        <div class="timer-ring-wrap">
+          <svg class="timer-ring" viewBox="0 0 120 120">
+            <circle class="ring-bg" cx="60" cy="60" r="52"/>
+            <circle class="ring-progress" id="ringProgress" cx="60" cy="60" r="52"
+              stroke-dasharray="326.7" stroke-dashoffset="326.7"/>
+          </svg>
+          <div class="timer-center">
+            <span id="timerDisplay">25:00</span>
+            <small id="timerPhaseSmall">foco</small>
+          </div>
+        </div>
+
+        <div class="pom-controls">
+          <button class="btn-pom" id="btnPomStart">
+            <span class="material-symbols-rounded" id="pomIcon">play_arrow</span>
+          </button>
+          <button class="btn-pom-sm" id="btnPomReset" title="Reiniciar">
+            <span class="material-symbols-rounded">replay</span>
+          </button>
+        </div>
+
+        <div class="pom-settings">
+          <label>
+            <span>Foco (min)</span>
+            <input type="number" id="inputPomMin" min="1" max="60" value="25">
+          </label>
+          <label>
+            <span>Pausa (min)</span>
+            <input type="number" id="inputRestMin" min="1" max="30" value="5">
+          </label>
+        </div>
+      </div>
+
+      <div class="pom-right">
+        <div class="focus-card">
+          <h4>Ambiente sonoro</h4>
+          <div class="focus-grid">
+            <button class="focus-opt" data-env="none">🔇 Silêncio</button>
+            <button class="focus-opt active" data-env="lofi">🎵 Música</button>
+          </div>
+        </div>
+
+        <div class="pom-sessions">
+          <h4>Sessões hoje</h4>
+          <div id="sessionDots" class="session-dots"></div>
+          <p id="sessionCount" class="session-count">0 sessões concluídas</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── JAM PANEL ───────────────────────────────────────────────────────── -->
+  <section class="panel" id="panel-jam">
+    <div class="panel-head">
+      <div>
+        <h2>JAM Session</h2>
+        <span class="panel-sub">Estude junto com outros usuários</span>
+      </div>
+    </div>
+
+    <div id="jamJoinView" class="jam-join-view">
+      <div class="jam-join-card">
+        <div class="jam-join-icon">
+          <span class="material-symbols-rounded">groups</span>
+        </div>
+        <h3>Entre ou crie um JAM</h3>
+        <p>Compartilhe um código e estude em sincronia com sua equipe usando o mesmo timer Pomodoro.</p>
+
+        <div class="jam-form">
+          <input id="jamCodeInput" type="text" placeholder="Código do JAM (ex: STUDY01)" maxlength="10" style="text-transform:uppercase">
+          <div class="jam-form-row">
+            <div class="form-group">
+              <label>Nome do JAM</label>
+              <input id="jamNameInput" type="text" placeholder="Meu JAM" maxlength="40">
             </div>
-            <div class="hero-actions">
-                <button type="button" class="button-secondary" id="btnReset">Reiniciar</button>
-                <button type="button" class="button-secondary" id="btnLeaveJam">Sair Jam</button>
+            <div class="form-group">
+              <label>Foco (min)</label>
+              <input id="jamDurInput" type="number" min="1" max="60" value="25">
             </div>
-        </section>
+            <div class="form-group">
+              <label>Pausa (min)</label>
+              <input id="jamRestInput" type="number" min="1" max="30" value="5">
+            </div>
+          </div>
+          <div class="jam-btns">
+            <button class="btn-main" id="btnCreateJam">Criar JAM</button>
+            <button class="btn-outline" id="btnJoinJam">Entrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
-        <section id="viewTabs">
-            <button type="button" class="tab-button active" data-view="todo">Lista de Tarefas</button>
-            <button type="button" class="tab-button" data-view="kanban">Kanban</button>
-            <button type="button" class="tab-button" data-view="pomodoro">Pomodoro</button>
-        </section>
+    <!-- active jam view -->
+    <div id="jamActiveView" class="jam-active-view hidden">
+      <div class="jam-info-bar">
+        <div class="jam-code-tag">
+          <span class="material-symbols-rounded">tag</span>
+          <strong id="activeJamCode">—</strong>
+        </div>
+        <div class="jam-name-tag" id="activeJamName">—</div>
+        <div class="jam-members-count">
+          <span class="material-symbols-rounded">group</span>
+          <span id="jamMemberCount">0</span> membros
+        </div>
+        <button class="btn-danger-sm" id="btnLeaveJam">Sair do JAM</button>
+      </div>
 
-        <section id="panels">
-            <article class="card tab-content" id="todo-view" style="display: block;">
-                <div class="card-header">
-                    <h2>Lista de Tarefas</h2>
-                    <span>Inclua, conclua e acompanhe seu fluxo.</span>
-                </div>
-                <div class="task-input">
-                    <input id="inputToDo" type="text" placeholder="Nova tarefa...">
-                    <button type="button" class="button-primary" id="btnAddTask">Adicionar</button>
-                </div>
-                <ul id="todo"></ul>
-                <div class="task-note">
-                    <label><input type="checkbox" id="checkRel"> Salvar no relatório</label>
-                </div>
-            </article>
+      <div class="jam-layout">
+        <div class="jam-timer-col">
+          <div class="timer-ring-wrap">
+            <svg class="timer-ring" viewBox="0 0 120 120">
+              <circle class="ring-bg" cx="60" cy="60" r="52"/>
+              <circle class="ring-progress" id="jamRingProgress" cx="60" cy="60" r="52"
+                stroke-dasharray="326.7" stroke-dashoffset="326.7"/>
+            </svg>
+            <div class="timer-center">
+              <span id="jamTimerDisplay">25:00</span>
+              <small id="jamPhaseSmall">foco</small>
+            </div>
+          </div>
 
-            <article class="card tab-content" id="kanban-view" style="display: none;">
-                <div class="card-header">
-                    <h2>Kanban</h2>
-                    <span>Organize suas tarefas visualmente.</span>
-                </div>
-                <div class="kanban-actions">
-                    <input id="inputKanbanTitle" type="text" placeholder="Novo quadro...">
-                    <button type="button" class="button-primary" id="btnCreateKanban">Criar</button>
-                </div>
-                <div id="kanbanList" class="kanban-list"></div>
-            </article>
+          <div class="pom-controls">
+            <button class="btn-pom" id="btnJamStart">
+              <span class="material-symbols-rounded" id="jamIcon">play_arrow</span>
+            </button>
+            <button class="btn-pom-sm" id="btnJamStop" title="Parar">
+              <span class="material-symbols-rounded">stop</span>
+            </button>
+          </div>
 
-            <article class="card" id="pomodoro-card">
-                <div class="card-header">
-                    <div>
-                        <h2>Pomodoro</h2>
-                        <span id="timerPhase">Foco</span>
-                    </div>
-                    <div class="timer-value" id="jamStatus">Sem jam ativo</div>
-                </div>
+          <div class="jam-members-list" id="jamMembersList"></div>
+        </div>
 
-                <div class="timer-card">
-                    <svg width="240" height="240" viewBox="0 0 42 42" class="donut">
-                        <circle id="c1" cx="21" cy="21" r="15.91549430918954" stroke-dasharray="100 0" stroke-dashoffset="100"></circle>
-                        <circle id="c2" cx="21" cy="21" r="15.91549430918954" stroke-dasharray="0 100" stroke-dashoffset="0"></circle>
-                        <g class="chart-text">
-                            <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" id="counterText">25:00</text>
-                        </g>
-                    </svg>
-                </div>
+        <div class="jam-kanban-col">
+          <h4>Quadro colaborativo</h4>
+          <div id="jamKanban" class="jam-kanban"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
 
-                <div class="timer-meta">
-                    <label>
-                        Pomodoro (min)
-                        <input id="pomodoroMinutes" type="number" min="1" max="60" value="25">
-                    </label>
-                    <label>
-                        Descanso (min)
-                        <input id="restMinutes" type="number" min="1" max="30" value="5">
-                    </label>
-                </div>
+<!-- ═══ MODALS ═══════════════════════════════════════════════════════════════ -->
 
-                <div class="focus-tools">
-                    <label>Ambientes de foco:</label>
-                    <div class="focus-options">
-                        <button type="button" class="focus-btn" data-env="none">Silêncio</button>
-                        <button type="button" class="focus-btn active" data-env="ambient">Ambiente</button>
-                        <button type="button" class="focus-btn" data-env="nature">Natureza</button>
-                        <button type="button" class="focus-btn" data-env="coffee">Café</button>
-                    </div>
-                </div>
+<!-- Profile modal -->
+<div id="profileModal" class="overlay hidden">
+  <div class="overlay-card profile-card">
+    <div class="overlay-head">
+      <h3>Meu Perfil</h3>
+      <button class="icon-btn" id="closeProfile"><span class="material-symbols-rounded">close</span></button>
+    </div>
+    <div class="profile-body">
+      <div class="avatar-section">
+        <div class="avatar-wrap">
+          <img id="profileAvatar" src="/default-avatar.svg" alt="avatar">
+          <button class="avatar-change-btn" id="btnChangeAvatar" title="Alterar foto">
+            <span class="material-symbols-rounded">photo_camera</span>
+          </button>
+        </div>
+        <input type="file" id="avatarInput" accept="image/*" style="display:none">
+      </div>
+      <div class="profile-fields">
+        <div class="form-group">
+          <label>Nome</label>
+          <input type="text" id="profileName" placeholder="Seu nome" maxlength="60">
+        </div>
+        <div class="form-group">
+          <label>Bio</label>
+          <textarea id="profileBio" placeholder="Uma frase sobre você…" maxlength="280" rows="3"></textarea>
+        </div>
+        <button class="btn-main" id="btnSaveProfile">Salvar alterações</button>
+        <div id="profileMsg" class="msg-box hidden"></div>
+      </div>
+    </div>
+  </div>
+</div>
 
-                <div class="timer-actions">
-                    <button type="button" class="button-primary" id="btnPomodoro">Iniciar</button>
-                    <label class="toggle-row">
-                        <input type="checkbox" id="useJam">
-                        Jam colaborativo
-                    </label>
-                </div>
+<!-- Report modal -->
+<div id="reportModal" class="overlay hidden">
+  <div class="overlay-card">
+    <div class="overlay-head">
+      <h3>Relatório de Tarefas</h3>
+      <button class="icon-btn" id="closeReport"><span class="material-symbols-rounded">close</span></button>
+    </div>
+    <div id="reportContent" class="report-content"></div>
+  </div>
+</div>
 
-                <div id="jamPanel" class="jam-panel inactive">
-                    <div class="jam-header">
-                        <h3>Jam colaborativo</h3>
-                        <span class="hint">Compartilhe o mesmo pomodoro com a equipe.</span>
-                    </div>
-                    <div class="jam-form">
-                        <input id="jamCode" type="text" placeholder="Código..." maxlength="6">
-                        <button type="button" class="button-secondary" id="btnCreateJam">Criar</button>
-                        <button type="button" class="button-secondary" id="btnJoinJam">Entrar</button>
-                    </div>
-                    <div class="jam-status-card">
-                        <div><strong>Código</strong><span id="jamCodeValue">—</span></div>
-                        <div><strong>Fase</strong><span id="jamPhase">—</span></div>
-                        <div><strong>Tempo</strong><span id="jamRemaining">—</span></div>
-                        <div><strong>Membros</strong><span id="jamMembers">0</span></div>
-                    </div>
-                    <div id="jamMembersDisplay" class="jam-members"></div>
-                    <div class="jam-actions">
-                        <button type="button" class="button-secondary" id="btnStartJam">Iniciar</button>
-                        <button type="button" class="button-secondary" id="btnStopJam">Parar</button>
-                    </div>
-                </div>
-            </article>
-        </section>
-    </main>
+<!-- New board modal -->
+<div id="boardModal" class="overlay hidden">
+  <div class="overlay-card small-card">
+    <div class="overlay-head">
+      <h3>Novo Quadro Kanban</h3>
+      <button class="icon-btn" id="closeBoardModal"><span class="material-symbols-rounded">close</span></button>
+    </div>
+    <div class="form-group">
+      <label>Título</label>
+      <input type="text" id="boardTitleInput" placeholder="Nome do quadro" maxlength="80">
+    </div>
+    <div class="form-group">
+      <label>Descrição <small>(opcional)</small></label>
+      <input type="text" id="boardDescInput" placeholder="Sobre o que é este quadro?" maxlength="160">
+    </div>
+    <button class="btn-main" id="btnConfirmNewBoard">Criar quadro</button>
+    <div id="boardModalMsg" class="msg-box hidden"></div>
+  </div>
+</div>
 
-    <script>
-        const appState = {_localtimer: {...}, jamstate: null, timerinterval: null, countdowninterval: null, jampoll: null, musicon: false, focusenvironment: 'ambient'};
-        function initPage() { bindEvents();loadTodoList();loadToDoTable();loadKanbanList();const storedJam=localStorage.getItem('pomotickJamCode');if(storedJam){loadJamState(storedJam);}updateTimerDisplay(appState.localTimer.remaining);loadUserProfile();}
-        function bindEvents(){document.getElementById('btnPomodoro').addEventListener('click',handlePomodoroAction);document.getElementById('btnReset').addEventListener('click',resetLocalTimer);document.getElementById('btnCreateJam').addEventListener('click',createJam);document.getElementById('btnJoinJam').addEventListener('click',joinJam);document.getElementById('btnLeaveJam').addEventListener('click',leaveJam);document.getElementById('btnStartJam').addEventListener('click',startJamTimer);document.getElementById('btnStopJam').addEventListener('click',stopJamTimer);document.getElementById('useJam').addEventListener('change',handleUseJamToggle);document.getElementById('volume').addEventListener('click',toggleMusic);document.getElementById('profile').addEventListener('click',showProfileModal);document.getElementById('profileClose').addEventListener('click',hideProfileModal);document.getElementById('history').addEventListener('click',showHistory);document.getElementById('historyClose').addEventListener('click',hideHistory);document.getElementById('btnAddTask').addEventListener('click',addNewTask);document.getElementById('inputToDo').addEventListener('keydown',event=>{if(event.key==='Enter'){event.preventDefault();addNewTask();}});document.getElementById('btnCreateKanban').addEventListener('click',createKanbanBoard);document.getElementById('btnChangePicture').addEventListener('click',()=>document.getElementById('pictureUpload').click());document.getElementById('pictureUpload').addEventListener('change',uploadProfilePicture);document.getElementById('btnSaveProfile').addEventListener('click',saveProfile);document.querySelectorAll('.focus-btn').forEach(btn=>{btn.addEventListener('click',setFocusEnvironment);});document.querySelectorAll('[data-view]').forEach(tab=>{tab.addEventListener('click',switchView);});}
-        async function fetchJson(path,options={}){const response=await fetch(path,{headers:{'Content-Type':'application/json'},...options});return response.json();}
-        async function loadUserProfile(){const data=await fetchJson('/profile');if(data.success){document.getElementById('inputName').value=data.profile.name;document.getElementById('inputBio').value=data.profile.bio||'';if(data.profile.profilePicture){document.getElementById('profilePicture').src=data.profile.profilePicture;}}}
-        async function saveProfile(){const name=document.getElementById('inputName').value.trim();const bio=document.getElementById('inputBio').value.trim();const data=await fetchJson('/profile/update',{method:'POST',body:JSON.stringify({name,bio})});if(data.success){alert('Perfil atualizado!');hideProfileModal();}else{alert('Erro: '+data.error);}}
-        async function uploadProfilePicture(e){const file=e.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=async(event)=>{const pictureData=event.target.result;const response=await fetchJson('/profile/picture',{method:'POST',body:JSON.stringify({pictureData})});if(response.success){document.getElementById('profilePicture').src=response.profilePicture;alert('Foto atualizada!');}else{alert('Erro: '+response.error);}};reader.readAsDataURL(file);}
-        function showProfileModal(){document.getElementById('profileModal').classList.remove('hidden');}
-        function hideProfileModal(){document.getElementById('profileModal').classList.add('hidden');}
-        function switchView(e){const view=e.target.dataset.view;document.querySelectorAll('[data-view]').forEach(tab=>tab.classList.remove('active'));e.target.classList.add('active');document.querySelectorAll('.tab-content').forEach(content=>content.style.display='none');document.getElementById(view+'-view').style.display='block';}
-        function setFocusEnvironment(e){document.querySelectorAll('.focus-btn').forEach(btn=>btn.classList.remove('active'));e.target.classList.add('active');appState.focusEnvironment=e.target.dataset.env;}
-        async function createKanbanBoard(){const title=document.getElementById('inputKanbanTitle').value.trim();if(!title){alert('Digite um título.');return;}const data=await fetchJson('/kanban/create',{method:'POST',body:JSON.stringify({title})});if(data.success){document.getElementById('inputKanbanTitle').value='';loadKanbanList();}else{alert('Erro: '+data.error);}}
-        async function loadKanbanList(){const data=await fetchJson('/kanban/list');if(data.success){const list=document.getElementById('kanbanList');list.innerHTML='';data.boards.forEach(board=>{const div=document.createElement('div');div.className='kanban-board';div.innerHTML=`<h3>${board.title}</h3><div class="board-columns">${board.columns.map(col=>`<div class="column"><h4>${col.title}</h4><div class="cards">${col.cards.map(card=>`<div class="card-item">${card.title}</div>`).join('')}</div></div>`).join('')}</div>`;list.appendChild(div);});}}
-        async function loadTodoList(){const data=await fetchJson('/loadUserData');if(!data.success){return;}const todoList=data.todo?data.todo.todoList||[]:[]; renderTodoList(todoList);}
-        function renderTodoList(todoList){const ul=document.getElementById('todo');ul.innerHTML='';todoList.forEach(item=>{const li=document.createElement('li');li.textContent=item.text;if(item.checked)li.classList.add('checked');if(item.relatorio)li.classList.add('relatorio');if(item.display==='none')li.style.display='none';const span=document.createElement('span');span.className='remove-task';span.textContent='×';span.addEventListener('click',()=>{li.style.display='none';saveDataBase();});li.appendChild(span);ul.appendChild(li);});ul.addEventListener('click',event=>{if(event.target.tagName==='LI'){event.target.classList.toggle('checked');saveDataBase();}});}
-        function addNewTask(){const input=document.getElementById('inputToDo');const value=input.value.trim();if(!value){alert('Digite uma tarefa.');return;}const li=document.createElement('li');li.textContent=value;if(document.getElementById('checkRel').checked){li.classList.add('relatorio');}const span=document.createElement('span');span.className='remove-task';span.textContent='×';span.addEventListener('click',()=>{li.style.display='none';saveDataBase();});li.appendChild(span);document.getElementById('todo').appendChild(li);input.value='';saveDataBase();}
-        function saveDataBase(){const todoList=Array.from(document.querySelectorAll('#todo li')).map(item=>({text:item.childNodes[0]?item.childNodes[0].textContent.trim():'',checked:item.classList.contains('checked'),relatorio:item.classList.contains('relatorio'),display:item.style.display||''}));fetch('/saveUserData',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({todoList})}).catch(error=>console.error('Erro:',error));}
-        async function loadToDoTable(){const data=await fetchJson('/loadUserData');if(!data.success){return;}const todoList=data.todo?data.todo.todoList||[]:[]; renderToDoTable(todoList);}
-        function renderToDoTable(todoList){const tbody=document.getElementById('todoBody');tbody.innerHTML='';todoList.forEach(item=>{const tr=document.createElement('tr');tr.innerHTML=`<td>${item.text}</td><td>${item.checked?'Sim':'Não'}</td><td>${item.relatorio?'Sim':'Não'}</td><td>${item.display==='none'?'Sim':'Não'}</td>`;tbody.appendChild(tr);});}
-        function showHistory(){document.getElementById('historyTable').classList.remove('hidden');}
-        function hideHistory(){document.getElementById('historyTable').classList.add('hidden');}
-        function handlePomodoroAction(){if(appState.jamState&&document.getElementById('useJam').checked){appState.jamState.running?stopJamTimer():startJamTimer();return;}appState.localTimer.running?stopLocalTimer():startLocalTimer();}
-        function startLocalTimer(){stopJamPolling();const focusMinutes=Math.max(1,Math.min(60,Number(document.getElementById('pomodoroMinutes').value)||25));const restMinutes=Math.max(1,Math.min(30,Number(document.getElementById('restMinutes').value)||5));appState.localTimer.duration=focusMinutes*60;appState.localTimer.restDuration=restMinutes*60;if(!appState.localTimer.running){appState.localTimer.remaining=appState.localTimer.mode==='work'?appState.localTimer.duration:appState.localTimer.restDuration;}appState.localTimer.running=true;document.getElementById('btnPomodoro').textContent='Parar';updateTimerDisplay(appState.localTimer.remaining);if(appState.timerInterval)clearInterval(appState.timerInterval);appState.timerInterval=setInterval(tickLocalTimer,1000);}
-        function tickLocalTimer(){if(!appState.localTimer.running)return;appState.localTimer.remaining-=1;if(appState.localTimer.remaining<=10){startCountdownBeep();}if(appState.localTimer.remaining<=0){playAlert();appState.localTimer.mode=appState.localTimer.mode==='work'?'rest':'work';appState.localTimer.remaining=appState.localTimer.mode==='work'?appState.localTimer.duration:appState.localTimer.restDuration;stopCountdownBeep();}updateTimerDisplay(appState.localTimer.remaining);}
-        function stopLocalTimer(){appState.localTimer.running=false;clearInterval(appState.timerInterval);appState.timerInterval=null;stopCountdownBeep();document.getElementById('btnPomodoro').textContent='Iniciar';}
-        function resetLocalTimer(){stopLocalTimer();appState.localTimer.mode='work';appState.localTimer.remaining=appState.localTimer.duration;updateTimerDisplay(appState.localTimer.remaining);}
-        function startCountdownBeep(){if(appState.countdownInterval)return;const beep=document.getElementById('alertTick');appState.countdownInterval=setInterval(()=>{beep.currentTime=0;beep.play().catch(()=>{});},1000);}
-        function stopCountdownBeep(){if(appState.countdownInterval){clearInterval(appState.countdownInterval);appState.countdownInterval=null;}}
-        function playAlert(){const beep=document.getElementById('alertTick');beep.currentTime=0;beep.play().catch(()=>{});}
-        function updateTimerDisplay(seconds){const minutes=Math.floor(seconds/60);const secs=seconds%60;document.getElementById('counterText').textContent=`${String(minutes).padStart(2,'0')}:${String(secs).padStart(2,'0')}`;document.getElementById('timerPhase').textContent=appState.localTimer.mode==='work'?'Foco':'Descanso';document.title=`PomoTick - ${String(minutes).padStart(2,'0')}:${String(secs).padStart(2,'0')}`;updateDonut(seconds);}
-        function updateDonut(seconds){const total=appState.localTimer.mode==='work'?appState.localTimer.duration:appState.localTimer.restDuration;const progress=total>0?Math.min(100,Math.round((total-seconds)/total*100)):0;const offset=100-progress;document.getElementById('c1').style.strokeDasharray=`${offset} ${progress}`;document.getElementById('c2').style.strokeDasharray=`${progress} ${offset}`;document.getElementById('c1').style.strokeDashoffset=offset.toString();}
-        async function createJam(){const code=document.getElementById('jamCode').value.trim().toUpperCase();const duration=Number(document.getElementById('pomodoroMinutes').value)||25;const restDuration=Number(document.getElementById('restMinutes').value)||5;if(!code){alert('Digite o código.');return;}const data=await fetchJson('/jam/create',{method:'POST',body:JSON.stringify({code,duration,restDuration})});if(data.success){setJamState(data.jam);}else{alert(data.error||'Erro ao criar jam.');}}
-        async function joinJam(){const code=document.getElementById('jamCode').value.trim().toUpperCase();if(!code){alert('Digite o código.');return;}const data=await fetchJson('/jam/join',{method:'POST',body:JSON.stringify({code})});if(data.success){setJamState(data.jam);}else{alert(data.error||'Erro ao entrar.');}}
-        async function loadJamState(code){const data=await fetchJson(`/jam/state?code=${encodeURIComponent(code)}`);if(!data.success){clearJam();return;}setJamState(data.jam);}
-        function setJamState(jam){appState.jamState=jam;localStorage.setItem('pomotickJamCode',jam.code);document.getElementById('jamCodeValue').textContent=jam.code;document.getElementById('jamPhase').textContent=jam.phase==='work'?'Foco':'Descanso';document.getElementById('jamRemaining').textContent=formatTime(jam.remaining);document.getElementById('jamMembers').textContent=jam.members.length;document.getElementById('jamStatus').textContent=jam.running?'Jam conectado':'Jam pronto';document.getElementById('jamPanel').classList.remove('inactive');toggleUseJamButton(true);if(jam.running){startJamPolling();}}
-        function formatTime(seconds){const minutes=Math.floor(seconds/60);const secs=seconds%60;return `${String(minutes).padStart(2,'0')}:${String(secs).padStart(2,'0')}`;}
-        function toggleUseJamButton(enabled){document.getElementById('useJam').disabled=!enabled;}
-        function handleUseJamToggle(){if(document.getElementById('useJam').checked){stopLocalTimer();startJamPolling();}else{stopJamPolling();}}
-        async function startJamTimer(){if(!appState.jamState){alert('Entre em um jam.');return;}const data=await fetchJson('/jam/start',{method:'POST',body:JSON.stringify({code:appState.jamState.code,duration:Number(document.getElementById('pomodoroMinutes').value)||25,restDuration:Number(document.getElementById('restMinutes').value)||5})});if(data.success){setJamState(data.jam);}else{alert(data.error||'Erro ao iniciar jam.');}}
-        async function stopJamTimer(){if(!appState.jamState)return;const data=await fetchJson('/jam/stop',{method:'POST',body:JSON.stringify({code:appState.jamState.code})});if(data.success){setJamState(data.jam);}else{alert(data.error||'Erro ao parar jam.');}}
-        function leaveJam(){clearJam();alert('Você saiu do jam.');}
-        function clearJam(){appState.jamState=null;localStorage.removeItem('pomotickJamCode');document.getElementById('jamCodeValue').textContent='—';document.getElementById('jamPhase').textContent='—';document.getElementById('jamRemaining').textContent='—';document.getElementById('jamMembers').textContent='0';document.getElementById('jamStatus').textContent='Sem jam ativo';document.getElementById('jamPanel').classList.add('inactive');document.getElementById('useJam').checked=false;toggleUseJamButton(false);stopJamPolling();}
-        function startJamPolling(){if(!appState.jamState||appState.jamPoll)return;appState.jamPoll=setInterval(()=>{if(appState.jamState){loadJamState(appState.jamState.code);}},2500);}
-        function stopJamPolling(){if(appState.jamPoll){clearInterval(appState.jamPoll);appState.jamPoll=null;}}
-        function toggleMusic(){const audio=document.getElementById('backgroundMusic');appState.musicOn=!appState.musicOn;audio.muted=!appState.musicOn;if(appState.musicOn){audio.play().catch(()=>{});document.getElementById('volume').textContent='volume_up';}else{audio.pause();document.getElementById('volume').textContent='volume_off';}}
-        window.addEventListener('load',()=>{appState.localTimer={duration:1500,restDuration:300,remaining:1500,mode:'work',running:false};});
-    </script>
+<!-- Add card modal -->
+<div id="cardModal" class="overlay hidden">
+  <div class="overlay-card small-card">
+    <div class="overlay-head">
+      <h3>Novo Card</h3>
+      <button class="icon-btn" id="closeCardModal"><span class="material-symbols-rounded">close</span></button>
+    </div>
+    <div class="form-group">
+      <label>Título</label>
+      <input type="text" id="cardTitleInput" placeholder="O que precisa ser feito?" maxlength="120">
+    </div>
+    <div class="form-group">
+      <label>Descrição</label>
+      <textarea id="cardDescInput" placeholder="Detalhes…" maxlength="400" rows="3"></textarea>
+    </div>
+    <div class="form-group">
+      <label>Prioridade</label>
+      <select id="cardPriority">
+        <option value="low">🟢 Baixa</option>
+        <option value="medium" selected>🟡 Média</option>
+        <option value="high">🔴 Alta</option>
+      </select>
+    </div>
+    <button class="btn-main" id="btnConfirmCard">Adicionar card</button>
+    <div id="cardModalMsg" class="msg-box hidden"></div>
+  </div>
+</div>
+
+<script src="/app.js"></script>
 </body>
 </html>
