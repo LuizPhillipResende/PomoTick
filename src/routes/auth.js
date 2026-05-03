@@ -1,7 +1,7 @@
 'use strict';
 const express = require('express');
 const bcrypt  = require('bcryptjs');
-const { User } = require('../schemas/index.js');
+const { User } = require('../app/schemas/index.js');
 
 const router = express.Router();
 
