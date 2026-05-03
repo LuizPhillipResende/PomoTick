@@ -8,7 +8,13 @@ Funcionalidades
 Autenticação de Usuário: Os usuários podem se cadastrar, fazer login e sair de forma segura. As senhas são criptografadas usando bcrypt para maior segurança.
 Funções de Usuário: A aplicação tem dois papéis de usuário: ‘user’ e ‘admin’, com diferentes níveis de acesso.
 Lista de Tarefas: Os usuários podem gerenciar suas listas de tarefas, marcar tarefas como concluídas e gerar relatórios.
-Painel de Admin: Usuários administradores têm acesso a um painel para visualizar e gerenciar tarefas de todos os usuários.
+Pomodoro personalizável: É possível alterar o tempo de foco e descanso no cronômetro com ajustes de 1 a 60 minutos.
+Contagem regressiva sonora: 10 segundos antes do fim de cada sessão, um bip sonoro avisa o usuário.
+Jam colaborativo: Vários usuários podem se conectar a um jam e compartilhar o mesmo tempo do pomodoro.
+Ferramentas de foco: Ambientes sonoros (Silêncio, Ambiente, Natureza, Café) para melhorar a concentração.
+Kanban colaborativo: Crie quadros kanban individuais com colunas (A Fazer, Fazendo, Concluído) ou compartilhe em um jam.
+Perfil personalizado: Upload de foto de perfil, bio, e exibição de fotos dos participantes do jam.
+Painel de Admin: Usuários administradores têm acesso a um painel para visualizar e gerenciar usuários e dados.
 Instalação
 Clone o repositório:
 git clone https://github.com/LuizPhillipResende/PomoTick.git

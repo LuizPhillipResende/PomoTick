@@ -1,508 +1,246 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>PomoTick</title>
-        <link rel="stylesheet" href="/style.css">
-        <link rel="shortcut icon" href="/logo.png" type="image/x-icon">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-    </head>
-<body onload="loadTodoList(); loadToDoTable()">
-    <audio id="Sweden" loop>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PomoTick</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="shortcut icon" href="/logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend+Exa:wght@300;400;500;600;700;800&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+</head>
+<body onload="initPage()">
+    <audio id="backgroundMusic" loop>
         <source src="/Sweden.mp3" type="audio/mp3">
     </audio>
-    <audio id="notificationPomodoro">
+    <audio id="alertTick">
         <source src="/notificationPomodoro.mp3" type="audio/mp3">
     </audio>
+
     <div id="navbar">
-        <span>
-            <span onclick="openAndCloseNavBar();" class="material-symbols-outlined" id="menuClose">close</span>
-            <div id="logoHome" alt="Logo Comp Junior"><svg style="fill:#902F72" width="70" height="70" viewBox="-2 -2 35 35" xmlns="http://www.w3.org/2000/svg">
-                <path d="M13.003 20.6648C11.8363 20.6648 10.3338 19.8038 10.3338 18.6371V12.0545H2.20129C1.03028 12.0545 0.00134277 12.5582 0.00134277 13.7249V29.4388C0.00134277 30.6098 1.03028 31.8583 2.20129 31.8583H17.9152C19.0862 31.8583 19.8052 30.6098 19.8052 29.4388V20.6648H13.003Z"/>
-                <path d="M9.47275 9.2303C9.48688 9.50686 9.39122 9.77782 9.20659 9.98422C9.02196 10.1906 8.76329 10.3158 8.48687 10.3324H0.987254C0.710829 10.3158 0.452166 10.1906 0.267536 9.98422C0.0829064 9.77782 -0.0127533 9.50686 0.0013679 9.2303V1.10212C-0.0127533 0.825558 0.0829064 0.554604 0.267536 0.348206C0.452166 0.141807 0.710829 0.0166639 0.987254 0H8.48687C8.76329 0.0166639 9.02196 0.141807 9.20659 0.348206C9.39122 0.554604 9.48688 0.825558 9.47275 1.10212V9.2303Z"/>
-                <path d="M30.9986 30.7562C31.0128 31.0327 30.9171 31.3037 30.7325 31.5101C30.5478 31.7165 30.2892 31.8416 30.0127 31.8583H22.5131C22.2367 31.8416 21.978 31.7165 21.7934 31.5101C21.6088 31.3037 21.5131 31.0327 21.5272 30.7562V22.628C21.5131 22.3514 21.6088 22.0805 21.7934 21.8741C21.978 21.6677 22.2367 21.5425 22.5131 21.5259H30.0127C30.2892 21.5425 30.5478 21.6677 30.7325 21.8741C30.9171 22.0805 31.0128 22.3514 30.9986 22.628V30.7562Z"/>
-                <path d="M28.8848 0H13.3087C12.1412 0 11.1948 0.946399 11.1948 2.11384V17.69C11.1948 18.8574 12.1412 19.8038 13.3087 19.8038H28.8848C30.0522 19.8038 30.9986 18.8574 30.9986 17.69V2.11384C30.9986 0.946399 30.0522 0 28.8848 0Z"/></svg>
-            </div>
-            <a id="volume" style="text-decoration: none;" href="#" onclick="event.preventDefault(); muteAudio()" class="material-symbols-outlined">
-                volume_up
-            </a>
-            <label style="color: #902F72; font-size: 10px; font-weight: 500;" for="volume">Música</label>
-            <a id="history" href="#" style="text-decoration: none;" onclick="event.preventDefault(); loadToDoTable(); displayTable()" class="material-symbols-outlined">
-                history
-            </a>
-            <label style="color: #902F72; font-size: 10px; font-weight: 500;" for="history">Histórico</label>
-        </span>
-        <span>
-            <a id="admin" style="text-decoration: none; display: none;" href="/admin" class="material-symbols-outlined">
-                shield_person
-            </a>
-            <label id="adminLabel" style="color: #902F72; font-size: 10px; font-weight: 500; display: none;" for="admin">Admin</label>
-            <a id="logout" style="text-decoration: none;" href="/logout" class="material-symbols-outlined">
-                logout
-            </a>
-            <label style="color: #902F72; font-size: 10px; font-weight: 500;" for="logout">Sair</label>
-            <br>
-            <br>
-            <label style="color: #902F72; font-size: 10px; font-weight: 500;" for="Camada_1">Desenvolvido por Luiz Phillip</label>
-        </span>
-    </div>
-
-    <div id="historyTable" style="display: none;">
-        <span onclick="displayTable();" class="fechar">&times</span>
-        <h2>Relatório pessoal</h2>
-
-        <table id="todoTable">
-            <thead>
-                <tr>
-                    <th>Atividade</th>
-                    <th>Concluída</th>
-                    <th>Relatório</th>
-                    <th>Excluido</th>
-                </tr>
-            </thead>
-            <tbody id="todoBody">
-            </tbody>
-        </table>
-    </div>
-    
-    <div id="homePage">
-        <div id="title">
-            <span onclick="openAndCloseNavBar();" class="material-symbols-outlined" id="menu">menu</span>
-            <h1>PomoTick</h1>
-        </div>
-        <span id="tools">
-            <div id="todo-list">
-                <h2>To-Do List</h2>
-                <ul id="todo">
-                    <li>Fazer cafune no CompCat</li>
-                    <li class="checked">Adorar o CompCat!</li>
-                </ul>
-                <div id="todoText">
-                    <input type="text" id="inputToDo" placeholder="Estudar...">
-                    <a href="#" id="btnAdd" onclick="event.preventDefault(); newItem();">Adicionar</a>
-                    <div><input name="relatorio" type="checkbox" checked id="checkRel">
-                    <label>
-                        Exibir no relatório
-                        <span id="help-tip" style="color: white; font-size: 20px !important;" class="material-symbols-outlined">
-                            info
-                            <p>Os dados contidos na sua <br> 
-                            lista To-Do irão ser <br> 
-                            informados nos relatorios <br> 
-                            realizados para o <br> 
-                            administrador da sua <br>
-                            equipe!</p>
-                        </span>
-                    </label></div>
-                </div>
-            </div>
-
-            <div id="pomodoro">
-                <h2>Pomodoro</h2>
-                <svg width="60%" height="auto" viewBox="0 0 42 42" class="donut">
-                    <circle id="c1" cx="21" cy="21" r="15.91549430918954" stroke-dasharray="100 0" stroke-dashoffset="100"></circle>
-                    <circle id="c2" cx="21" cy="21" r="15.91549430918954" stroke-dasharray="0 100" stroke-dashoffset="0"></circle>
-                    <g class="chart-text">
-                        <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" id="counterText">25:00</text>
-                    </g>
+        <div class="nav-block">
+            <button type="button" id="menuToggle" class="icon-button material-symbols-outlined">menu</button>
+            <div id="logoHome" alt="Logo Comp Junior">
+                <svg width="70" height="70" viewBox="-2 -2 35 35" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M13.003 20.6648C11.8363 20.6648 10.3338 19.8038 10.3338 18.6371V12.0545H2.20129C1.03028 12.0545 0.00134277 12.5582 0.00134277 13.7249V29.4388C0.00134277 30.6098 1.03028 31.8583 2.20129 31.8583H17.9152C19.0862 31.8583 19.8052 30.6098 19.8052 29.4388V20.6648H13.003Z"/>
+                    <path d="M9.47275 9.2303C9.48688 9.50686 9.39122 9.77782 9.20659 9.98422C9.02196 10.1906 8.76329 10.3158 8.48687 10.3324H0.987254C0.710829 10.3158 0.452166 10.1906 0.267536 9.98422C0.0829064 9.77782 -0.0127533 9.50686 0.0013679 9.2303V1.10212C-0.0127533 0.825558 0.0829064 0.554604 0.267536 0.348206C0.452166 0.141807 0.710829 0.0166639 0.987254 0H8.48687C8.76329 0.0166639 9.02196 0.141807 9.20659 0.348206C9.39122 0.554604 9.48688 0.825558 9.47275 1.10212V9.2303Z"/>
+                    <path d="M30.9986 30.7562C31.0128 31.0327 30.9171 31.3037 30.7325 31.5101C30.5478 31.7165 30.2892 31.8416 30.0127 31.8583H22.5131C22.2367 31.8416 21.978 31.7165 21.7934 31.5101C21.6088 31.3037 21.5131 31.0327 21.5272 30.7562V22.628C21.5131 22.3514 21.6088 22.0805 21.7934 21.8741C21.978 21.6677 22.2367 21.5425 22.5131 21.5259H30.0127C30.2892 21.5425 30.5478 21.6677 30.7325 21.8741C30.9171 22.0805 31.0128 22.3514 30.9986 22.628V30.7562Z"/>
+                    <path d="M28.8848 0H13.3087C12.1412 0 11.1948 0.946399 11.1948 2.11384V17.69C11.1948 18.8574 12.1412 19.8038 13.3087 19.8038H28.8848C30.0522 19.8038 30.9986 18.8574 30.9986 17.69V2.11384C30.9986 0.946399 30.0522 0 28.8848 0Z"/>
                 </svg>
-                <a href="#" onclick="event.preventDefault(); startTimer(false);" id="btnPomodoro">Iniciar</a>
             </div>
-        </span>
+        </div>
+        <div class="nav-block nav-actions">
+            <button type="button" id="volume" class="icon-button material-symbols-outlined" title="Música">volume_up</button>
+            <button type="button" id="profile" class="icon-button material-symbols-outlined" title="Perfil">account_circle</button>
+            <button type="button" id="history" class="icon-button material-symbols-outlined" title="Histórico">history</button>
+            <a id="adminLink" class="icon-button material-symbols-outlined hidden" href="/admin" title="Admin">shield_person</a>
+            <a id="logoutLink" class="icon-button material-symbols-outlined" href="/logout" title="Sair">logout</a>
+        </div>
     </div>
 
-    <script>
-        //todo list
-        document.getElementById("inputToDo").addEventListener("keydown", function(event){
-            if(event.key === "Enter") {
-                newItem();
-            }
-        })
+    <div id="profileModal" class="overlay hidden">
+        <button class="close-button" id="profileClose">close</button>
+        <div class="profile-card">
+            <div class="profile-header">
+                <img id="profilePicture" class="profile-picture" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='%23902F72'%3E%3Ccircle cx='50' cy='35' r='20'/%3E%3Cellipse cx='50' cy='70' rx='30' ry='25'/%3E%3C/svg%3E" alt="Perfil">
+                <input type="file" id="pictureUpload" accept="image/*" style="display:none;">
+                <button type="button" id="btnChangePicture" class="icon-button material-symbols-outlined">photo_camera</button>
+            </div>
+            <div class="profile-info">
+                <label>Nome</label>
+                <input type="text" id="inputName" placeholder="Seu nome">
+                <label>Bio</label>
+                <textarea id="inputBio" placeholder="Breve descrição sobre você" maxlength="200"></textarea>
+                <button type="button" class="button-primary" id="btnSaveProfile">Salvar alterações</button>
+            </div>
+        </div>
+    </div>
 
-        var myNodelist = document.getElementsByTagName("LI");
-        var i;
-        for (i = 0; i < myNodelist.length; i++) {
-          var span = document.createElement("SPAN");
-          var txt = document.createTextNode("\u00D7");
-          span.className = "close";
-          span.appendChild(txt);
-          myNodelist[i].appendChild(span);
-        }
+    <div id="historyTable" class="overlay hidden">
+        <button class="close-button" id="historyClose">close</button>
+        <h2>Relatório de Tarefas</h2>
+        <div class="history-grid">
+            <table id="todoTable">
+                <thead>
+                    <tr>
+                        <th>Atividade</th>
+                        <th>Concluída</th>
+                        <th>Relatório</th>
+                        <th>Excluído</th>
+                    </tr>
+                </thead>
+                <tbody id="todoBody"></tbody>
+            </table>
+        </div>
+    </div>
 
-        var close = document.getElementsByClassName("close");
-        var i;
-        for (i = 0; i < close.length; i++) {
-          close[i].onclick = function() {
-            var div = this.parentElement;
-            div.style.display = "none";
-            saveDataBase();
-          }
-        }
+    <main id="homePage">
+        <section id="hero">
+            <div>
+                <h1>PomoTick</h1>
+                <p>Organize tarefas e kanban, pratique pomodoro com ferramentas de foco.</p>
+            </div>
+            <div class="hero-actions">
+                <button type="button" class="button-secondary" id="btnReset">Reiniciar</button>
+                <button type="button" class="button-secondary" id="btnLeaveJam">Sair Jam</button>
+            </div>
+        </section>
 
-        var list = document.querySelector('ul');
-        list.addEventListener('click', function(ev) {
-          if (ev.target.tagName === 'LI') {
-            ev.target.classList.toggle('checked');
-          }
-          saveDataBase();
-        }, false);
-        
-        function newItem() {
-            var li = document.createElement("li");
-            var inputValue = document.getElementById("inputToDo").value;
-            var t = document.createTextNode(inputValue);
-            li.appendChild(t);
-            if (inputValue === ''){
-              alert("Não é possivel salvar um item em branco!");
-            }else{
-              document.getElementById("todo").appendChild(li);
-            }
-            document.getElementById("inputToDo").value = "";
+        <section id="viewTabs">
+            <button type="button" class="tab-button active" data-view="todo">Lista de Tarefas</button>
+            <button type="button" class="tab-button" data-view="kanban">Kanban</button>
+            <button type="button" class="tab-button" data-view="pomodoro">Pomodoro</button>
+        </section>
 
-            if(document.getElementById('checkRel').checked){
-                li.classList.add('relatorio');
-            }
-          
-            var span = document.createElement("SPAN");
-            var txt = document.createTextNode("\u00D7");
-            span.className = "close";
-            span.appendChild(txt);
-            li.appendChild(span);
-          
-            for (i = 0; i < close.length; i++) {
-              close[i].onclick = function() {
-                var div = this.parentElement;
-                div.style.display = "none";
-              }
-            }
+        <section id="panels">
+            <article class="card tab-content" id="todo-view" style="display: block;">
+                <div class="card-header">
+                    <h2>Lista de Tarefas</h2>
+                    <span>Inclua, conclua e acompanhe seu fluxo.</span>
+                </div>
+                <div class="task-input">
+                    <input id="inputToDo" type="text" placeholder="Nova tarefa...">
+                    <button type="button" class="button-primary" id="btnAddTask">Adicionar</button>
+                </div>
+                <ul id="todo"></ul>
+                <div class="task-note">
+                    <label><input type="checkbox" id="checkRel"> Salvar no relatório</label>
+                </div>
+            </article>
 
-            saveDataBase();
-        }
+            <article class="card tab-content" id="kanban-view" style="display: none;">
+                <div class="card-header">
+                    <h2>Kanban</h2>
+                    <span>Organize suas tarefas visualmente.</span>
+                </div>
+                <div class="kanban-actions">
+                    <input id="inputKanbanTitle" type="text" placeholder="Novo quadro...">
+                    <button type="button" class="button-primary" id="btnCreateKanban">Criar</button>
+                </div>
+                <div id="kanbanList" class="kanban-list"></div>
+            </article>
 
-        function saveDataBase(){
-            var todoList = [];
-            var listItems = document.querySelectorAll('#todo li');
-                
-            listItems.forEach((item) => {
-                var checked = item.classList.contains('checked');
-                var text = item.innerText.trim().replace('\u00D7', '');
-                var display = item.style.display;
-                var relatorio = item.classList.contains('relatorio');
-                todoList.push({ text, checked, relatorio, display });
-            });
-        
-            const requestData = {
-                todoList: todoList.map(item => ({ text: item.text, checked: item.checked, relatorio: item.relatorio, display: item.display })),
-            };
-        
-            fetch('/saveUserData', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(requestData),
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    console.log('Dados do usuário salvos com sucesso:', data.todo);
-                } else {
-                    console.error('Erro ao salvar dados do usuário:', data.error);
-                }
-            })
-            .catch(error => console.error('Erro na solicitação:', error));
-        }
+            <article class="card" id="pomodoro-card">
+                <div class="card-header">
+                    <div>
+                        <h2>Pomodoro</h2>
+                        <span id="timerPhase">Foco</span>
+                    </div>
+                    <div class="timer-value" id="jamStatus">Sem jam ativo</div>
+                </div>
 
-        function loadTodoList() {
-            fetch('/loadUserData', {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    const todoList = data.todo.todoList;
-                    renderTodoList(todoList);
-                } else {
-                    console.error('Erro ao carregar dados do usuário:', data.error);
-                }
-            })
-            .catch(error => console.error('Erro na solicitação:', error));
-        }
+                <div class="timer-card">
+                    <svg width="240" height="240" viewBox="0 0 42 42" class="donut">
+                        <circle id="c1" cx="21" cy="21" r="15.91549430918954" stroke-dasharray="100 0" stroke-dashoffset="100"></circle>
+                        <circle id="c2" cx="21" cy="21" r="15.91549430918954" stroke-dasharray="0 100" stroke-dashoffset="0"></circle>
+                        <g class="chart-text">
+                            <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" id="counterText">25:00</text>
+                        </g>
+                    </svg>
+                </div>
 
-        function renderTodoList(todoList) {
-            const ul = document.getElementById('todo');
-            ul.innerHTML = '';
-        
-            todoList.forEach(item => {
-                const li = document.createElement('li');
-                li.textContent = item.text;
-                if (item.checked) {
-                    li.classList.add('checked');
-                }
-                li.style.display = item.display;
-            
-                const span = document.createElement('SPAN');
-                const txt = document.createTextNode('\u00D7');
-                span.className = 'close';
-                span.appendChild(txt);
-                li.appendChild(span);
-                ul.appendChild(li);
-            }); 
-        
-            const close = document.getElementsByClassName('close');
-            for (let i = 0; i < close.length; i++) {
-                close[i].onclick = function() {
-                    var div = this.parentElement;
-                    div.style.display = 'none';
-                    saveDataBase();
-                };
-            }
-        }
+                <div class="timer-meta">
+                    <label>
+                        Pomodoro (min)
+                        <input id="pomodoroMinutes" type="number" min="1" max="60" value="25">
+                    </label>
+                    <label>
+                        Descanso (min)
+                        <input id="restMinutes" type="number" min="1" max="30" value="5">
+                    </label>
+                </div>
 
+                <div class="focus-tools">
+                    <label>Ambientes de foco:</label>
+                    <div class="focus-options">
+                        <button type="button" class="focus-btn" data-env="none">Silêncio</button>
+                        <button type="button" class="focus-btn active" data-env="ambient">Ambiente</button>
+                        <button type="button" class="focus-btn" data-env="nature">Natureza</button>
+                        <button type="button" class="focus-btn" data-env="coffee">Café</button>
+                    </div>
+                </div>
 
-    </script>
+                <div class="timer-actions">
+                    <button type="button" class="button-primary" id="btnPomodoro">Iniciar</button>
+                    <label class="toggle-row">
+                        <input type="checkbox" id="useJam">
+                        Jam colaborativo
+                    </label>
+                </div>
 
-    <script>
-        //pomodoro
-        var timerInterval;
-        var timeout;
-
-        function startTimer(Repeat) {
-            var btn = document.getElementById('btnPomodoro');
-            var repeat = Repeat;
-            var audio = document.getElementById("Sweden");
-        
-            if (btn.innerText === 'Iniciar' || repeat == true) {
-                audio.play();
-                btn.style.backgroundColor = '#FFF';
-                btn.style.color = '#902F72';
-                btn.innerText = 'Parar';
-            
-                var duration = 1500 ;
-                var time = duration;
-                var i = 1;
-                var k = ((i/time) * 100);
-                var l = 100 - k;
-                i++;
-                document.getElementById("c1").style.strokeDasharray = [l,k];
-                document.getElementById("c2").style.strokeDasharray = [k,l];
-                document.getElementById("c1").style.strokeDashoffset = l;
-            
-                updateTimerDisplay(duration);
-            
-                timeout = setTimeout(function () {
-                    timerInterval = setInterval(function () {
-                        if (i > time) {
-                            document.getElementById("c1").style.strokeDasharray = '';
-                            document.getElementById("c2").style.strokeDasharray = '';
-                            document.getElementById("c1").style.strokeDashoffset = '';
-                            document.getElementById("c1").style.stroke = '#FFF';
-                            document.getElementById("c2").style.stroke = '#902F72';
-                            clearInterval(timerInterval);
-                            clearTimeout(timeout);
-                            audio.pause();
-                            audio.currentTime = 0;
-                            document.getElementById("notificationPomodoro").play();
-                            restTimer();
-                        }else{
-                        k = ((i/duration) * 100);
-                        l = 100 - k;
-                            document.getElementById("c1").style.strokeDasharray = [l,k];
-                            document.getElementById("c2").style.strokeDasharray = [k,l];
-                            document.getElementById("c1").style.strokeDashoffset = l;
-                            
-                            updateTimerDisplay(time - i);
-                            i++;
-                        }
-                    }, 1000);
-                }, 0);
-            } else {
-                clearInterval(timerInterval);
-                clearTimeout(timeout);
-                resetTimerDisplay();
-                audio.pause();
-                audio.currentTime = 0;
-            }
-        }
-
-        function restTimer() {
-            var btn = document.getElementById('btnPomodoro');
-            
-            if (btn.innerText === 'Parar') {
-                btn.style.backgroundColor = '#FFF';
-                btn.style.color = '#902F72';
-                btn.innerText = 'Parar';
-            
-                var duration = 300;
-                var time = duration;
-                var i = 1;
-                var k = ((i/time) * 100);
-                var l = 100 - k;
-                i++;
-                document.getElementById("c1").style.strokeDasharray = [l,k];
-                document.getElementById("c2").style.strokeDasharray = [k,l];
-                document.getElementById("c1").style.strokeDashoffset = l;
-            
-                updateTimerDisplay(duration);
-            
-                timeout = setTimeout(function () {
-                    timerInterval = setInterval(function () {
-                        if (i > time) {
-                            document.getElementById("c1").style.strokeDasharray = '';
-                            document.getElementById("c2").style.strokeDasharray = '';
-                            document.getElementById("c1").style.strokeDashoffset = '';
-                            document.getElementById("c1").style.stroke = '#902F72';
-                            document.getElementById("c2").style.stroke = '#FFF';
-                            clearInterval(timerInterval);
-                            clearTimeout(timeout);
-                            document.getElementById("notificationPomodoro").play();
-                            startTimer(true);
-                        }else{
-                        k = ((i/duration) * 100);
-                        l = 100 - k;
-                            document.getElementById("c1").style.strokeDasharray = [l,k];
-                            document.getElementById("c2").style.strokeDasharray = [k,l];
-                            document.getElementById("c1").style.strokeDashoffset = l;
-                            
-                            updateTimerDisplay(time - i);
-                            i++;
-                        }
-                    }, 1000);
-                }, 0);
-            } else {
-                clearInterval(timerInterval);
-                clearTimeout(timeout);
-                resetTimerDisplay();
-            }
-        }
-
-        function updateTimerDisplay(seconds) {
-            var minutos = Math.floor(seconds / 60);
-            var segundos = seconds % 60;
-            if (segundos < 10) {
-                segundos = "0" + segundos;
-            }
-            if (minutos < 10) {
-                minutos = "0" + minutos;
-            }
-            document.getElementById("counterText").innerHTML = minutos + ":" + segundos;
-            document.title = "PomoTick (" + minutos + ":" + segundos + ")";
-        }
-
-        function resetTimerDisplay() {
-            var btn = document.getElementById('btnPomodoro');
-            btn.style.backgroundColor = '';
-            btn.style.color = '';
-            btn.innerText = 'Iniciar';
-        
-            document.getElementById("counterText").innerHTML = "25:00";
-            document.title = "PomoTick";
-        
-            document.getElementById("c1").style.strokeDasharray = '';
-            document.getElementById("c2").style.strokeDasharray = '';
-            document.getElementById("c1").style.strokeDashoffset = '';
-        }
-
-    </script>
+                <div id="jamPanel" class="jam-panel inactive">
+                    <div class="jam-header">
+                        <h3>Jam colaborativo</h3>
+                        <span class="hint">Compartilhe o mesmo pomodoro com a equipe.</span>
+                    </div>
+                    <div class="jam-form">
+                        <input id="jamCode" type="text" placeholder="Código..." maxlength="6">
+                        <button type="button" class="button-secondary" id="btnCreateJam">Criar</button>
+                        <button type="button" class="button-secondary" id="btnJoinJam">Entrar</button>
+                    </div>
+                    <div class="jam-status-card">
+                        <div><strong>Código</strong><span id="jamCodeValue">—</span></div>
+                        <div><strong>Fase</strong><span id="jamPhase">—</span></div>
+                        <div><strong>Tempo</strong><span id="jamRemaining">—</span></div>
+                        <div><strong>Membros</strong><span id="jamMembers">0</span></div>
+                    </div>
+                    <div id="jamMembersDisplay" class="jam-members"></div>
+                    <div class="jam-actions">
+                        <button type="button" class="button-secondary" id="btnStartJam">Iniciar</button>
+                        <button type="button" class="button-secondary" id="btnStopJam">Parar</button>
+                    </div>
+                </div>
+            </article>
+        </section>
+    </main>
 
     <script>
-        //navbar
-
-        function openAndCloseNavBar(){
-            navbar = document.getElementById("navbar");
-            console.log("pressionado");
-            if(navbar.style.display === "none" || navbar.style.display === ''){
-                navbar.style.display = "flex";
-            }else{
-                navbar.style.display = "none";
-            }
-        }
-
-        function muteAudio(){
-            audio = document.getElementById("Sweden");
-            var isMuted = audio.muted;
-            if(isMuted){
-                audio.muted = false;
-                document.getElementById("volume").innerHTML = "volume_up";
-            }else{
-                audio.muted = true;
-                document.getElementById("volume").innerHTML = "volume_off";
-            }
-        }
-
-        function loadToDoTable() {
-            fetch('/loadUserData', {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    
-                    //verificando se é admin
-                    if(data.userData.role === "user"){
-                        document.getElementById("admin").remove();
-                        document.getElementById("adminLabel").remove();
-                    }else{
-                        document.getElementById("admin").style.display = "";
-                        document.getElementById("adminLabel").style.display = "";
-                    }
-
-                    //carregando tabela
-                    const todoList = data.todo.todoList;
-                    renderToDoTable(todoList);
-                } else {
-                    console.error('Erro ao carregar dados do usuário:', data.error);
-                }
-            })
-            .catch(error => console.error('Erro na solicitação:', error));
-        }
-
-        function renderToDoTable(todoList) {
-            const tbody = document.getElementById('todoBody');
-            tbody.innerHTML = '';
-        
-            todoList.forEach(item => {
-                const tr = document.createElement('tr');
-                
-                const tdActivity = document.createElement('td');
-                tdActivity.textContent = item.text;
-                tr.appendChild(tdActivity);
-
-                const tdCompleted = document.createElement('td');
-                tdCompleted.textContent = item.checked ? 'Sim' : 'Não';
-                tr.appendChild(tdCompleted);
-
-                const tdReport = document.createElement('td');
-                tdReport.textContent = item.relatorio ? 'Sim' : 'Não';
-                tr.appendChild(tdReport);
-
-                const tdDeleted = document.createElement('td');
-                if(item.display === ''){
-                    tdDeleted.textContent = 'Não';
-                }else{
-                    tdDeleted.textContent = 'Sim';
-                }
-                tr.appendChild(tdDeleted);
-
-                tbody.appendChild(tr);
-            });
-        }
-
-        function displayTable(){
-            table = document.getElementById('historyTable');
-            if(table.style.display == 'none'){
-                table.style.display = '';
-            }else{
-                table.style.display = 'none';
-            }
-        }
-
+        const appState = {_localtimer: {...}, jamstate: null, timerinterval: null, countdowninterval: null, jampoll: null, musicon: false, focusenvironment: 'ambient'};
+        function initPage() { bindEvents();loadTodoList();loadToDoTable();loadKanbanList();const storedJam=localStorage.getItem('pomotickJamCode');if(storedJam){loadJamState(storedJam);}updateTimerDisplay(appState.localTimer.remaining);loadUserProfile();}
+        function bindEvents(){document.getElementById('btnPomodoro').addEventListener('click',handlePomodoroAction);document.getElementById('btnReset').addEventListener('click',resetLocalTimer);document.getElementById('btnCreateJam').addEventListener('click',createJam);document.getElementById('btnJoinJam').addEventListener('click',joinJam);document.getElementById('btnLeaveJam').addEventListener('click',leaveJam);document.getElementById('btnStartJam').addEventListener('click',startJamTimer);document.getElementById('btnStopJam').addEventListener('click',stopJamTimer);document.getElementById('useJam').addEventListener('change',handleUseJamToggle);document.getElementById('volume').addEventListener('click',toggleMusic);document.getElementById('profile').addEventListener('click',showProfileModal);document.getElementById('profileClose').addEventListener('click',hideProfileModal);document.getElementById('history').addEventListener('click',showHistory);document.getElementById('historyClose').addEventListener('click',hideHistory);document.getElementById('btnAddTask').addEventListener('click',addNewTask);document.getElementById('inputToDo').addEventListener('keydown',event=>{if(event.key==='Enter'){event.preventDefault();addNewTask();}});document.getElementById('btnCreateKanban').addEventListener('click',createKanbanBoard);document.getElementById('btnChangePicture').addEventListener('click',()=>document.getElementById('pictureUpload').click());document.getElementById('pictureUpload').addEventListener('change',uploadProfilePicture);document.getElementById('btnSaveProfile').addEventListener('click',saveProfile);document.querySelectorAll('.focus-btn').forEach(btn=>{btn.addEventListener('click',setFocusEnvironment);});document.querySelectorAll('[data-view]').forEach(tab=>{tab.addEventListener('click',switchView);});}
+        async function fetchJson(path,options={}){const response=await fetch(path,{headers:{'Content-Type':'application/json'},...options});return response.json();}
+        async function loadUserProfile(){const data=await fetchJson('/profile');if(data.success){document.getElementById('inputName').value=data.profile.name;document.getElementById('inputBio').value=data.profile.bio||'';if(data.profile.profilePicture){document.getElementById('profilePicture').src=data.profile.profilePicture;}}}
+        async function saveProfile(){const name=document.getElementById('inputName').value.trim();const bio=document.getElementById('inputBio').value.trim();const data=await fetchJson('/profile/update',{method:'POST',body:JSON.stringify({name,bio})});if(data.success){alert('Perfil atualizado!');hideProfileModal();}else{alert('Erro: '+data.error);}}
+        async function uploadProfilePicture(e){const file=e.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=async(event)=>{const pictureData=event.target.result;const response=await fetchJson('/profile/picture',{method:'POST',body:JSON.stringify({pictureData})});if(response.success){document.getElementById('profilePicture').src=response.profilePicture;alert('Foto atualizada!');}else{alert('Erro: '+response.error);}};reader.readAsDataURL(file);}
+        function showProfileModal(){document.getElementById('profileModal').classList.remove('hidden');}
+        function hideProfileModal(){document.getElementById('profileModal').classList.add('hidden');}
+        function switchView(e){const view=e.target.dataset.view;document.querySelectorAll('[data-view]').forEach(tab=>tab.classList.remove('active'));e.target.classList.add('active');document.querySelectorAll('.tab-content').forEach(content=>content.style.display='none');document.getElementById(view+'-view').style.display='block';}
+        function setFocusEnvironment(e){document.querySelectorAll('.focus-btn').forEach(btn=>btn.classList.remove('active'));e.target.classList.add('active');appState.focusEnvironment=e.target.dataset.env;}
+        async function createKanbanBoard(){const title=document.getElementById('inputKanbanTitle').value.trim();if(!title){alert('Digite um título.');return;}const data=await fetchJson('/kanban/create',{method:'POST',body:JSON.stringify({title})});if(data.success){document.getElementById('inputKanbanTitle').value='';loadKanbanList();}else{alert('Erro: '+data.error);}}
+        async function loadKanbanList(){const data=await fetchJson('/kanban/list');if(data.success){const list=document.getElementById('kanbanList');list.innerHTML='';data.boards.forEach(board=>{const div=document.createElement('div');div.className='kanban-board';div.innerHTML=`<h3>${board.title}</h3><div class="board-columns">${board.columns.map(col=>`<div class="column"><h4>${col.title}</h4><div class="cards">${col.cards.map(card=>`<div class="card-item">${card.title}</div>`).join('')}</div></div>`).join('')}</div>`;list.appendChild(div);});}}
+        async function loadTodoList(){const data=await fetchJson('/loadUserData');if(!data.success){return;}const todoList=data.todo?data.todo.todoList||[]:[]; renderTodoList(todoList);}
+        function renderTodoList(todoList){const ul=document.getElementById('todo');ul.innerHTML='';todoList.forEach(item=>{const li=document.createElement('li');li.textContent=item.text;if(item.checked)li.classList.add('checked');if(item.relatorio)li.classList.add('relatorio');if(item.display==='none')li.style.display='none';const span=document.createElement('span');span.className='remove-task';span.textContent='×';span.addEventListener('click',()=>{li.style.display='none';saveDataBase();});li.appendChild(span);ul.appendChild(li);});ul.addEventListener('click',event=>{if(event.target.tagName==='LI'){event.target.classList.toggle('checked');saveDataBase();}});}
+        function addNewTask(){const input=document.getElementById('inputToDo');const value=input.value.trim();if(!value){alert('Digite uma tarefa.');return;}const li=document.createElement('li');li.textContent=value;if(document.getElementById('checkRel').checked){li.classList.add('relatorio');}const span=document.createElement('span');span.className='remove-task';span.textContent='×';span.addEventListener('click',()=>{li.style.display='none';saveDataBase();});li.appendChild(span);document.getElementById('todo').appendChild(li);input.value='';saveDataBase();}
+        function saveDataBase(){const todoList=Array.from(document.querySelectorAll('#todo li')).map(item=>({text:item.childNodes[0]?item.childNodes[0].textContent.trim():'',checked:item.classList.contains('checked'),relatorio:item.classList.contains('relatorio'),display:item.style.display||''}));fetch('/saveUserData',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({todoList})}).catch(error=>console.error('Erro:',error));}
+        async function loadToDoTable(){const data=await fetchJson('/loadUserData');if(!data.success){return;}const todoList=data.todo?data.todo.todoList||[]:[]; renderToDoTable(todoList);}
+        function renderToDoTable(todoList){const tbody=document.getElementById('todoBody');tbody.innerHTML='';todoList.forEach(item=>{const tr=document.createElement('tr');tr.innerHTML=`<td>${item.text}</td><td>${item.checked?'Sim':'Não'}</td><td>${item.relatorio?'Sim':'Não'}</td><td>${item.display==='none'?'Sim':'Não'}</td>`;tbody.appendChild(tr);});}
+        function showHistory(){document.getElementById('historyTable').classList.remove('hidden');}
+        function hideHistory(){document.getElementById('historyTable').classList.add('hidden');}
+        function handlePomodoroAction(){if(appState.jamState&&document.getElementById('useJam').checked){appState.jamState.running?stopJamTimer():startJamTimer();return;}appState.localTimer.running?stopLocalTimer():startLocalTimer();}
+        function startLocalTimer(){stopJamPolling();const focusMinutes=Math.max(1,Math.min(60,Number(document.getElementById('pomodoroMinutes').value)||25));const restMinutes=Math.max(1,Math.min(30,Number(document.getElementById('restMinutes').value)||5));appState.localTimer.duration=focusMinutes*60;appState.localTimer.restDuration=restMinutes*60;if(!appState.localTimer.running){appState.localTimer.remaining=appState.localTimer.mode==='work'?appState.localTimer.duration:appState.localTimer.restDuration;}appState.localTimer.running=true;document.getElementById('btnPomodoro').textContent='Parar';updateTimerDisplay(appState.localTimer.remaining);if(appState.timerInterval)clearInterval(appState.timerInterval);appState.timerInterval=setInterval(tickLocalTimer,1000);}
+        function tickLocalTimer(){if(!appState.localTimer.running)return;appState.localTimer.remaining-=1;if(appState.localTimer.remaining<=10){startCountdownBeep();}if(appState.localTimer.remaining<=0){playAlert();appState.localTimer.mode=appState.localTimer.mode==='work'?'rest':'work';appState.localTimer.remaining=appState.localTimer.mode==='work'?appState.localTimer.duration:appState.localTimer.restDuration;stopCountdownBeep();}updateTimerDisplay(appState.localTimer.remaining);}
+        function stopLocalTimer(){appState.localTimer.running=false;clearInterval(appState.timerInterval);appState.timerInterval=null;stopCountdownBeep();document.getElementById('btnPomodoro').textContent='Iniciar';}
+        function resetLocalTimer(){stopLocalTimer();appState.localTimer.mode='work';appState.localTimer.remaining=appState.localTimer.duration;updateTimerDisplay(appState.localTimer.remaining);}
+        function startCountdownBeep(){if(appState.countdownInterval)return;const beep=document.getElementById('alertTick');appState.countdownInterval=setInterval(()=>{beep.currentTime=0;beep.play().catch(()=>{});},1000);}
+        function stopCountdownBeep(){if(appState.countdownInterval){clearInterval(appState.countdownInterval);appState.countdownInterval=null;}}
+        function playAlert(){const beep=document.getElementById('alertTick');beep.currentTime=0;beep.play().catch(()=>{});}
+        function updateTimerDisplay(seconds){const minutes=Math.floor(seconds/60);const secs=seconds%60;document.getElementById('counterText').textContent=`${String(minutes).padStart(2,'0')}:${String(secs).padStart(2,'0')}`;document.getElementById('timerPhase').textContent=appState.localTimer.mode==='work'?'Foco':'Descanso';document.title=`PomoTick - ${String(minutes).padStart(2,'0')}:${String(secs).padStart(2,'0')}`;updateDonut(seconds);}
+        function updateDonut(seconds){const total=appState.localTimer.mode==='work'?appState.localTimer.duration:appState.localTimer.restDuration;const progress=total>0?Math.min(100,Math.round((total-seconds)/total*100)):0;const offset=100-progress;document.getElementById('c1').style.strokeDasharray=`${offset} ${progress}`;document.getElementById('c2').style.strokeDasharray=`${progress} ${offset}`;document.getElementById('c1').style.strokeDashoffset=offset.toString();}
+        async function createJam(){const code=document.getElementById('jamCode').value.trim().toUpperCase();const duration=Number(document.getElementById('pomodoroMinutes').value)||25;const restDuration=Number(document.getElementById('restMinutes').value)||5;if(!code){alert('Digite o código.');return;}const data=await fetchJson('/jam/create',{method:'POST',body:JSON.stringify({code,duration,restDuration})});if(data.success){setJamState(data.jam);}else{alert(data.error||'Erro ao criar jam.');}}
+        async function joinJam(){const code=document.getElementById('jamCode').value.trim().toUpperCase();if(!code){alert('Digite o código.');return;}const data=await fetchJson('/jam/join',{method:'POST',body:JSON.stringify({code})});if(data.success){setJamState(data.jam);}else{alert(data.error||'Erro ao entrar.');}}
+        async function loadJamState(code){const data=await fetchJson(`/jam/state?code=${encodeURIComponent(code)}`);if(!data.success){clearJam();return;}setJamState(data.jam);}
+        function setJamState(jam){appState.jamState=jam;localStorage.setItem('pomotickJamCode',jam.code);document.getElementById('jamCodeValue').textContent=jam.code;document.getElementById('jamPhase').textContent=jam.phase==='work'?'Foco':'Descanso';document.getElementById('jamRemaining').textContent=formatTime(jam.remaining);document.getElementById('jamMembers').textContent=jam.members.length;document.getElementById('jamStatus').textContent=jam.running?'Jam conectado':'Jam pronto';document.getElementById('jamPanel').classList.remove('inactive');toggleUseJamButton(true);if(jam.running){startJamPolling();}}
+        function formatTime(seconds){const minutes=Math.floor(seconds/60);const secs=seconds%60;return `${String(minutes).padStart(2,'0')}:${String(secs).padStart(2,'0')}`;}
+        function toggleUseJamButton(enabled){document.getElementById('useJam').disabled=!enabled;}
+        function handleUseJamToggle(){if(document.getElementById('useJam').checked){stopLocalTimer();startJamPolling();}else{stopJamPolling();}}
+        async function startJamTimer(){if(!appState.jamState){alert('Entre em um jam.');return;}const data=await fetchJson('/jam/start',{method:'POST',body:JSON.stringify({code:appState.jamState.code,duration:Number(document.getElementById('pomodoroMinutes').value)||25,restDuration:Number(document.getElementById('restMinutes').value)||5})});if(data.success){setJamState(data.jam);}else{alert(data.error||'Erro ao iniciar jam.');}}
+        async function stopJamTimer(){if(!appState.jamState)return;const data=await fetchJson('/jam/stop',{method:'POST',body:JSON.stringify({code:appState.jamState.code})});if(data.success){setJamState(data.jam);}else{alert(data.error||'Erro ao parar jam.');}}
+        function leaveJam(){clearJam();alert('Você saiu do jam.');}
+        function clearJam(){appState.jamState=null;localStorage.removeItem('pomotickJamCode');document.getElementById('jamCodeValue').textContent='—';document.getElementById('jamPhase').textContent='—';document.getElementById('jamRemaining').textContent='—';document.getElementById('jamMembers').textContent='0';document.getElementById('jamStatus').textContent='Sem jam ativo';document.getElementById('jamPanel').classList.add('inactive');document.getElementById('useJam').checked=false;toggleUseJamButton(false);stopJamPolling();}
+        function startJamPolling(){if(!appState.jamState||appState.jamPoll)return;appState.jamPoll=setInterval(()=>{if(appState.jamState){loadJamState(appState.jamState.code);}},2500);}
+        function stopJamPolling(){if(appState.jamPoll){clearInterval(appState.jamPoll);appState.jamPoll=null;}}
+        function toggleMusic(){const audio=document.getElementById('backgroundMusic');appState.musicOn=!appState.musicOn;audio.muted=!appState.musicOn;if(appState.musicOn){audio.play().catch(()=>{});document.getElementById('volume').textContent='volume_up';}else{audio.pause();document.getElementById('volume').textContent='volume_off';}}
+        window.addEventListener('load',()=>{appState.localTimer={duration:1500,restDuration:300,remaining:1500,mode:'work',running:false};});
     </script>
 </body>
 </html>
